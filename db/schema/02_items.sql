@@ -10,7 +10,6 @@ CREATE TABLE items (
   colour VARCHAR(50) NOT NULL,
   size INTEGER  NOT NULL DEFAULT 0,
   description TEXT,
-  thumbnail_photo_url VARCHAR(255) NOT NULL,
   cover_photo_url VARCHAR(255) NOT NULL,
   gender VARCHAR(50) NOT NULL,
   active BOOLEAN NOT NULL DEFAULT TRUE
