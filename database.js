@@ -14,34 +14,32 @@ const getAllUsers = () => {
   });
 };
 
-// const getUserWithName = function (name) {
-//   return pool
-//     .query(
-//       `
-//     SELECT * FROM users
-//     WHERE name = $1;
+const getUserWithEmail = function (email) {
+  return pool
+    .query(
+      `
+    SELECT * FROM users
+    WHERE email = $1;
 
-//     `,
-//       [name]
-//     )
-//     .then((res) => res.rows);
-// };
+    `,
+      [email]
+    )
+    .then((res) => console.log(res.rows[0]));
+};
 
-// const getUserWithId = function (id) {
-//   return pool
-//     .query(
-//       `
-//   SELECT * FROM users
-//   WHERE id = $1;
+const getUserWithId = function (id) {
+  return pool
+    .query(
+      `
+  SELECT * FROM users
+  WHERE id = $1;
 
-//   `,
-//       [id]
-//     )
-//     .then((res) => res.rows[0]);
+  `,
+      [id]
+    )
+    .then((res) => res.rows[0]);
 
-//   // return Promise.resolve(users[id]);
-// };
+  // return Promise.resolve(users[id]);
+};
 
-// module.exports = { getAllUsers, getUserWithName, getUserWithId };
-
-module.exports = { getAllUsers };
+module.exports = { getAllUsers, getUserWithEmail, getUserWithId };
