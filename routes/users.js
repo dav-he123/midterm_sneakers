@@ -9,30 +9,31 @@ const express = require("express");
 const router = express.Router();
 
 module.exports = (db) => {
-  const login = function (name) {
-    return db.getUserWithName(name).then((user) => {
+  const login = function (email) {
+    return db.getUserWithEmail(email).then((user) => {
       if (user) {
-        return user.name;
+        return user.email;
       }
       return null;
     });
   };
   exports.login = login;
+
   router.post("/login", (req, res) => {
     res.cookie("username", req.body.username);
     res.sendStatus(200);
   });
 
   router.post("/login", (req, res) => {
-    const { name } = req.body;
-    login(name)
+    const { email } = req.body;
+    login(email)
       .then((user) => {
         if (!user) {
           res.send({ error: "error" });
           return;
         }
         req.session.userId = user.id;
-        res.send({ user: { name: user.name, id: user.id } });
+        res.send({ user: { name: user.name, email: user.email, id: user.id } });
       })
       .catch((e) => res.send(e));
   });

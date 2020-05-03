@@ -1,14 +1,14 @@
 const db = require("./database");
 
-const login = (name) => {
+const login = (email) => {
   for (let key of db.users) {
-    if (name === db.users[key].name) {
-      return name;
+    if (email === db.users[key].email) {
+      return email;
     }
   }
 };
 
-const getUserID = (name) => {};
+const getUserID = (email) => {};
 
 module.exports = {
   getUserID,
