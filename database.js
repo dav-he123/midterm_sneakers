@@ -51,6 +51,12 @@ const addListingSneakers = (sneaker) => {
     .then((res) => res.rows[0]);
 };
 
+const findFavouriteSneaker = (id) => {
+  return pool
+    .query(`SELECT * FROM favourites WHERE user_id = $1`, [id])
+    .then((res) => res.rows);
+};
+
 const getFavouriteSneakers = function (user) {
   return pool
     .query(
@@ -85,4 +91,5 @@ module.exports = {
   getUserWithId,
   getFavouriteSneakers,
   addListingSneakers,
+  findFavouriteSneaker,
 };
