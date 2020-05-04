@@ -8,16 +8,32 @@ const express = require('express');
 const router = express.Router();
 const database = require('../db/database');
 
-  router.get("/", (req, res) => {
-    database.getShoes()
-      .then(data => {
-        const shoes = data.rows;
-        res.json({ shoes });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
+router.get("/", (req, res) => {
+  database.getShoes()
+  .then(data => {
+    const shoes = data.rows;
+    res.json({ shoes });
+  })
+  .catch(err => {
+    res
+    .status(500)
+    .json({ error: err.message });
   });
+});
+
+router.get("/myShoes", (req, res) => {
+  const email = 'lera_hahn@dickens.org';
+  // const email = req.session.email;
+  database.getShoesBySeller(email)
+  .then(data => {
+    const shoes = data.rows;
+    res.json({ shoes });
+  })
+  .catch(err => {
+    res
+    .status(500)
+    .json({ error: err.message });
+  });
+});
+
 module.exports = router;

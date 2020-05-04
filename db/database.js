@@ -28,7 +28,8 @@ exports.getUsers = getUsers;
 
 /**
  * Get a list of shoes
- * @return {Promise<{}>} A promise with the list of shoes.
+ * @param {String} email The email of the user.
+ * @return {Promise<{}>} A promise to the user.
  */
 const getShoes = function() {
   const query = `SELECT * FROM items`
@@ -44,15 +45,17 @@ const getShoes = function() {
 }
 exports.getShoes = getShoes;
 
-
-/// Widgets
 /**
- * Get a widget list
- * @return {Promise<{}>} A promise with the list of widgets.
+ * Get a list of shoes for each owner
+ * @param {String} email The email of the owner.
+ * @return {Promise<{}>} A promise with the list of shoes.
  */
-const getWidgets = function() {
-  const query = `SELECT * FROM widgets`
-  return db.query(query)
+const getShoesBySeller = function(email) {
+  const query = `SELECT items.brand, items.title, items.price, items.description
+  FROM items
+  JOIN users ON users.id = admin_id
+  WHERE users.email=$1`
+  return db.query(query,[email])
   .then(res => {
     if(res.rows) {
       return res;
@@ -60,9 +63,9 @@ const getWidgets = function() {
       return null
     }
   })
-  .catch(err => console.log('eror', err));
+  .catch(err => console.log('error', err));
 }
-exports.getWidgets = getWidgets;
+exports.getShoesBySeller = getShoesBySeller;
 
 
 
