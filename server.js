@@ -5,13 +5,10 @@ require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 const ENV = process.env.ENV || "development";
 const express = require("express");
-// const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
 const sass = require("node-sass-middleware");
 const app = express();
 const morgan = require("morgan");
-
-const users = require("./routes/users");
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -47,8 +44,6 @@ const widgetsRoutes = require("./routes/widgets");
 app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 // Note: mount other resources here, using the same pattern above
-
-// app.use("/api/login", usersRoutes(db));
 
 // Home page
 // Warning: avoid creating more routes in this file!
