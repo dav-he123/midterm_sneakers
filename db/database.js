@@ -24,6 +24,26 @@ const getUsers = function() {
 }
 exports.getUsers = getUsers;
 
+/// Widgets
+
+/**
+ * Get all the widgets.
+ * @return {Promise<{}>} A promise with the list of widgets.
+ */
+const getWidgets = function() {
+  const query = `SELECT * FROM widgets`
+  return db.query(query)
+  .then(res => {
+    if(res.rows) {
+      return res;
+    } else {
+      return null
+    }
+  })
+  .catch(err => console.log('eror', err));
+}
+exports.getWidgets = getWidgets;
+
 /// Shoes
 
 /**
