@@ -1,4 +1,4 @@
-const db = require("./database");
+const db = require("./db/database");
 console.log("hello");
 
 const login = (email) => {
@@ -10,7 +10,6 @@ const login = (email) => {
       return email;
     }
   }
-  alert("You cannot login");
   return false;
 };
 
