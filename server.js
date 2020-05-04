@@ -13,6 +13,7 @@ const morgan     = require('morgan');
 //Routes
 const shoesRouter = require('./routes/shoes');
 const usersRouter = require('./routes/users');
+const widgetsRouter = require('./routes/widgets');
 
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
@@ -33,6 +34,7 @@ app.use(express.static("public"));
 // endpoints
 app.use('/shoes', shoesRouter);
 app.use('/users', usersRouter);
+app.use('/widgets', widgetsRouter);
 
 
 // Home page

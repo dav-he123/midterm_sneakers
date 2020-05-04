@@ -28,8 +28,7 @@ exports.getUsers = getUsers;
 
 /**
  * Get a list of shoes
- * @param {String} email The email of the user.
- * @return {Promise<{}>} A promise to the user.
+ * @return {Promise<{}>} A promise with the list of shoes.
  */
 const getShoes = function() {
   const query = `SELECT * FROM items`
@@ -44,6 +43,26 @@ const getShoes = function() {
   .catch(err => console.log('eror', err));
 }
 exports.getShoes = getShoes;
+
+
+/// Widgets
+/**
+ * Get a widget list
+ * @return {Promise<{}>} A promise with the list of widgets.
+ */
+const getWidgets = function() {
+  const query = `SELECT * FROM widgets`
+  return db.query(query)
+  .then(res => {
+    if(res.rows) {
+      return res;
+    } else {
+      return null
+    }
+  })
+  .catch(err => console.log('eror', err));
+}
+exports.getWidgets = getWidgets;
 
 
 
