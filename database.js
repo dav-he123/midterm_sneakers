@@ -29,6 +29,28 @@ const getUserWithEmail = function (email) {
     .then((res) => res.rows[0]);
 };
 
+const addListingSneakers = (sneaker) => {
+  return pool
+    .query(
+      `
+  INSERT INTO items (id, admin_id, brand, title, price, colour, size, description, cover_photo_url, gender, active)
+  VALUES (1, $1, $2, $3, $4, $5, $6, $7, $8, $9, true)
+  RETURNING *;
+`,
+      [
+        sneaker.brand,
+        sneaker.title,
+        sneaker.price,
+        sneaker.colour,
+        sneaker.size,
+        sneaker.description,
+        sneaker.cover_photo,
+        sneaker.gender,
+      ]
+    )
+    .then((res) => res.rows[0]);
+};
+
 const getFavouriteSneakers = function (user) {
   return pool
     .query(
@@ -57,4 +79,10 @@ const getUserWithId = function (id) {
   // return Promise.resolve(users[id]);
 };
 
-module.exports = { getAllUsers, getUserWithEmail, getUserWithId };
+module.exports = {
+  getAllUsers,
+  getUserWithEmail,
+  getUserWithId,
+  getFavouriteSneakers,
+  addListingSneakers,
+};

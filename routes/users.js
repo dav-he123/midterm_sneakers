@@ -38,6 +38,11 @@ module.exports = (db) => {
       .catch((e) => res.send(e));
   });
 
+  router.post("/logout", (req, res) => {
+    req.session.userId = null;
+    res.send({});
+  });
+
   router.get("/favourites", (req, res) => {
     console.log(res);
     let userID;
