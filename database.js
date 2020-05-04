@@ -7,6 +7,8 @@ const pool = new Pool({
   database: "midterm",
 });
 
+pool.connect();
+
 const getAllUsers = () => {
   return pool.query(`SELECT * FROM users`).then((res) => {
     //console.log(res.rows);
@@ -24,7 +26,20 @@ const getUserWithEmail = function (email) {
     `,
       [email]
     )
-    .then((res) => console.log(res.rows[0]));
+    .then((res) => res.rows[0]);
+};
+
+const getFavouriteSneakers = function (user) {
+  return pool
+    .query(
+      `
+    SELECT item_id FROM favourites 
+    WHERE user_id = $1
+
+    `,
+      [user]
+    )
+    .then((res) => res.rows);
 };
 
 const getUserWithId = function (id) {

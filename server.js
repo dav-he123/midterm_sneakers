@@ -9,12 +9,18 @@ const bodyParser = require("body-parser");
 const sass = require("node-sass-middleware");
 const app = express();
 const morgan = require("morgan");
+const cookieParser = require("cookie-parser");
+const cookieSession = require("cookie-session");
+
+const users = require("./routes/users");
 
 // PG database client/connection setup
-const { Pool } = require("pg");
-const dbParams = require("./lib/db.js");
-const db = new Pool(dbParams);
-db.connect();
+// const { Pool } = require("pg");
+// const dbParams = require("./lib/db.js");
+// const db = new Pool(dbParams);
+// db.connect();
+
+const db = require("./database");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -33,6 +39,8 @@ app.use(
   })
 );
 app.use(express.static("public"));
+app.use(cookieParser());
+app.use(cookieSession({ name: "user_id", secret: "asdfg" }));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
@@ -43,6 +51,8 @@ const widgetsRoutes = require("./routes/widgets");
 // Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
+// app.use("/api/favourites", favouritesRoutes(db));
+
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -50,11 +60,6 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
   res.render("index");
-});
-
-app.post("/login", (req, res) => {
-  res.cookie("username", req.body.username);
-  res.sendStatus(200);
 });
 
 app.listen(PORT, () => {
