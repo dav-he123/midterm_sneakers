@@ -16,6 +16,12 @@ const getAllUsers = () => {
   });
 };
 
+const getAllSneakers = () => {
+  return pool.query(`SELECT * FROM items`).then((res) => {
+    return res.rows;
+  });
+};
+
 const getUserWithEmail = function (email) {
   return pool
     .query(
@@ -28,6 +34,12 @@ const getUserWithEmail = function (email) {
     )
     .then((res) => res.rows[0]);
 };
+
+// const getFeaturedSneakers = function () {
+//   return pool
+//     .query(`SELECT * FROM items WHERE active = true`)
+//     .then((res) => res.rows);
+// };
 
 const addListingSneakers = (sneaker) => {
   return pool
@@ -92,4 +104,6 @@ module.exports = {
   getFavouriteSneakers,
   addListingSneakers,
   findFavouriteSneaker,
+  getAllSneakers,
+  // getFeaturedSneakers,
 };

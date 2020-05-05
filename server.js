@@ -49,6 +49,7 @@ const widgetsRoutes = require("./routes/widgets");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
+app.use("/allsneakers", usersRoutes(db));
 app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 // app.use("/api/favourites", favouritesRoutes(db));
@@ -58,7 +59,7 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
-app.get("/", (req, res) => {
+app.get("/login", (req, res) => {
   res.render("index");
 });
 
