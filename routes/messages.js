@@ -8,7 +8,9 @@
 const express = require("express");
 const router = express.Router();
 
-module.exports = (db) => {
+const database = require('../db/database');
+
+// module.exports = (db) => {
 
 
   // router.get("/", (req, res) => {
@@ -24,9 +26,12 @@ module.exports = (db) => {
 
   router.get("/", (req, res) => {
     // console.log("hello");
-    db.query(`SELECT * FROM messages
-    JOIN users ON from_user_id = users.id
-    JOIN items ON item_id = items.id;`)
+
+    database.getMessages()
+
+    // db.query(`SELECT * FROM messages
+    // JOIN users ON from_user_id = users.id
+    // JOIN items ON item_id = items.id;`)
       .then((data) => {
         // console.log(data.rows);
 
@@ -40,16 +45,22 @@ module.exports = (db) => {
 
   router.post("/", (req, res) => {
 
-    let messageText = req.body.message_text;
+    let messageText = req.body.new_message;
 
-    console.log(messageText);
+    // console.log(messageText);
 
-    const sql = "INSERT INTO messages (from_user_id, to_user_id, item_id, message) VALUES (5, 5, 5, $1);"
+    // console.log(messageText);
 
-    console.log(sql);
+    // const sql = "INSERT INTO messages (from_user_id, to_user_id, item_id, message) VALUES (5, 5, 5, $1);"
 
-    // db.query('INSERT INTO messages (from_user_id, to_user_id, item_id, message) VALUES (2,3,5, "hello")')
-    db.query(sql, [messageText])
+    // console.log(sql);
+
+    // // db.query('INSERT INTO messages (from_user_id, to_user_id, item_id, message) VALUES (2,3,5, "hello")')
+    // db.query(sql, [messageText])
+
+    database.postMessages(messageText)
+
+
 
       .then((data) => {
         console.log(data);
@@ -69,10 +80,10 @@ module.exports = (db) => {
 
 
 
+module.exports = router;
 
-
-  return router;
-};
+  // return router;
+// };
 
 
 
