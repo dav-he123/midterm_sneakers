@@ -19,10 +19,14 @@ module.exports = (db) => {
   };
   exports.login = login;
 
-  router.post("/login", (req, res) => {
-    res.cookie("username", req.body.username);
-    res.sendStatus(200);
-  });
+  // router.get("/david", (res, req) => {
+  //   console.log("test");
+  // });
+
+  // router.post("/login", (req, res) => {
+  //   res.cookie("email", req.body.email);
+  //   res.sendStatus(200);
+  // });
 
   router.post("/login", (req, res) => {
     const { email } = req.body;
@@ -34,20 +38,63 @@ module.exports = (db) => {
         }
         req.session.userId = user.id;
         res.send({ user: { name: user.name, email: user.email, id: user.id } });
+
+        // res.redirect("/");
       })
       .catch((e) => res.send(e));
   });
 
-  router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
-      .then((data) => {
-        const users = data.rows;
-        res.json({ users });
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
+  router.post("/logout", (req, res) => {
+    req.session.userId = null;
+    res.send({});
   });
+
+  // router.get("/favourites", (req, res) => {
+  //   console.log(res);
+  //   let userID;
+  //   db.getAllUsers().then((users) => {
+  //     for (let key of users) {
+  //       if (userEmail === key.email) {
+  //         userID = key.id;
+  //       }
+  //     }
+  //   });
+  //   db.getFavouriteSneakers(userID).then((favourites) => {
+  //     console.log(favourites);
+
+  //     let arrFav = [];
+  //     for (let key of favourites) {
+  //       arrFav.push(key.item_id);
+  //     }
+
+  //     db.getAllItems().then((items) => {
+  //       const favItems = items.filter((item) => arrFav.includes(item.id));
+  //       res.json({ favItems });
+  //     });
+  //   });
+  // });
+
+  // router.get("/test", (req, res) => {
+  //   db.getAllSneakers()
+  //     .then((sneakers) => {
+  //       // res.json({ sneakers });
+  //       res.render("index", { data: sneakers });
+  //     })
+  //     .catch((err) => {
+  //       res.status(500).json({ error: err.message });
+  //     });
+  // });
+
+  // router.get("/", (req, res) => {
+  //   db.query(`SELECT * FROM users;`)
+  //     .then((data) => {
+  //       const users = data.rows;
+  //       res.json({ users });
+  //     })
+  //     .catch((err) => {
+  //       res.status(500).json({ error: err.message });
+  //     });
+  // });
 
   router.get("/me", (req, res) => {
     const userId = req.session.userId;

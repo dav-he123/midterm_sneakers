@@ -1,7 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Home Page</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      crossorigin="anonymous"
+    />
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
@@ -9,19 +21,22 @@
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+
+    <title>Sneakers</title>
   </head>
 
   <body>
-    <h1>Sneakers</h1>
-
     <h3>Login</h3>
     <div class="right-buttons">
-      <form id="login-form" action="/login" method="POST">
-        <input type="text" id="username" name="username" placeholder="email" />
+      <form id="login-form" action="/api/users/login" method="POST">
+        <input type="text" id="username" name="email" placeholder="email" />
         <span>
           <button type="submit" class="login-btn">Login</button>
         </span>
       </form>
+      <span id="logout-form"></span id="logout-form">
+        <button type="submit" class="logout-btn">Logout</button>
+      </span>
     </div>
 
     <h3>Favourites</h3>
@@ -30,5 +45,7 @@
         <button type="submit" class="favourites-btn">favourites</button>
       </span>
     </div>
-  </body>
+
+
+
 </html>
