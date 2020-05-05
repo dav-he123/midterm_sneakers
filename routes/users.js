@@ -19,6 +19,10 @@ module.exports = (db) => {
   };
   exports.login = login;
 
+  // router.get("/david", (res, req) => {
+  //   console.log("test");
+  // });
+
   // router.post("/login", (req, res) => {
   //   res.cookie("email", req.body.email);
   //   res.sendStatus(200);
@@ -69,10 +73,12 @@ module.exports = (db) => {
   //   });
   // });
 
-  router.get("/", (req, res) => {
+  router.get("/test", (req, res) => {
     db.getAllSneakers()
       .then((sneakers) => {
-        res.json({ sneakers });
+        // res.json({ sneakers });
+
+        res.render("index", { data: sneakers });
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
