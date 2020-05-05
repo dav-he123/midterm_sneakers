@@ -138,3 +138,36 @@ exports.getShoesBySeller = getShoesBySeller;
       .then((res) => res.rows[0]);
   };
   exports.getUserWithId = getUserWithId;
+
+
+  const getMessages = function() {
+
+    const querySQL = `SELECT * FROM messages
+    JOIN users ON from_user_id = users.id
+    JOIN items ON item_id = items.id;`
+
+    return db.query(querySQL)
+      .then((res) => res);
+  };
+
+  exports.getMessages = getMessages;
+
+const postMessages = function(messageText) {
+
+  console.log(messageText);
+  const sql = "INSERT INTO messages (from_user_id, to_user_id, item_id, message) VALUES (5, 5, 5, $1);"
+
+  return db.query(sql, [messageText])
+  .then(res => {
+    if(res.rows) {
+      return res;
+
+    } else {
+      return null
+    }
+  })
+  .catch(err => console.log('error', err));
+
+};
+
+exports.postMessages = postMessages;

@@ -17,6 +17,7 @@ const usersRouter = require('./routes/users');
 const loginRouter = require('./routes/login');
 const widgetsRouter = require('./routes/widgets');
 const cookieSession = require("cookie-session");
+const messagesRoutes = require("./routes/messages");
 
 // const db = require("./db/database");
 
@@ -42,6 +43,8 @@ app.use('/sneakers', sneakersRouter);
 app.use('/users', usersRouter);
 app.use('/widgets', widgetsRouter);
 app.use('/login', loginRouter);
+app.use("/messages", messagesRoutes);
+
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -61,3 +64,5 @@ app.get("/login", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT} 😎`);
 });
+
+
