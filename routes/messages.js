@@ -36,10 +36,40 @@ module.exports = (db) => {
         res.render("messages", templateVars);
         // res.send(data);
       });
+  });
+
+  router.post("/", (req, res) => {
+
+    let messageText = req.body.message_text;
+
+    console.log(messageText);
+
+    const sql = "INSERT INTO messages (from_user_id, to_user_id, item_id, message) VALUES (5, 5, 5, $1);"
+
+    console.log(sql);
+
+    // db.query('INSERT INTO messages (from_user_id, to_user_id, item_id, message) VALUES (2,3,5, "hello")')
+    db.query(sql, [messageText])
+
+      .then((data) => {
+        console.log(data);
+        // // res.redirect("/")
+        // res.send(req.body);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+
 
 
 
   });
+
+
+
+
+
 
   return router;
 };
