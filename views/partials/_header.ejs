@@ -9,14 +9,31 @@
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Favourites</a>
+
+
+        <!-- <a class="nav-link" href="#">Favourites</a> -->
+        <span>
+          <button type="submit" class="favourites-btn">favourites</button>
+        </span>
+        
+
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Messages</a>
       </li>
     </ul>
   </div>
-  <form class="form-inline">
-    <button class="btn btn-info my-2 my-sm-0" type="submit">Login</button>
-  </form>
+
+    <div class="right-buttons">
+      <form id="login-form" action="/login" method="POST">
+        <input type="text" id="username" name="email" placeholder="email" />
+        <span>
+          <button type="submit" class="login-btn">Login</button>
+        </span>
+      </form>
+      <span id="logout-form"></span id="logout-form">
+        <button type="submit" class="logout-btn">Logout</button>
+      </span>
+    </div>
+
 </nav>
