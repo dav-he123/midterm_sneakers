@@ -8,6 +8,7 @@ const express = require('express');
 const router = express.Router();
 const database = require('../db/database');
 
+// List of sneakers
 router.get("/", (req, res) => {
   database.getAllSneakers()
   .then(data => {
@@ -21,6 +22,7 @@ router.get("/", (req, res) => {
   });
 });
 
+// List of sneakers that belongs to an owner
 router.get("/admin", (req, res) => {
   const email = 'lera_hahn@dickens.org';
   // const email = req.session.email;
@@ -39,10 +41,26 @@ router.get("/admin", (req, res) => {
   });
 });
 
+// List a specific pair of shoes
 router.get("/sneakers/:id", (req, res) => {
 
+});
+
+// Display the form to update a specific pair of shoes
+router.get('/sneakers/:id/update', (req, res) => {
 
 });
+
+// Update the specific pair of shoes
+router.post('/urls/:id', (req, res) => {
+
+});
+
+// Delete a specific pair of shoes
+router.post("/sneakers/:id/delete", (req, res) => {
+
+});
+
 
 
 module.exports = router;
