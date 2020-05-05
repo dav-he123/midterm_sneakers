@@ -41,18 +41,19 @@ router.get("/admin", (req, res) => {
   });
 });
 
+// Create a new pair of shoes
+router.post("/sneakers/new", (req, res) => {
+
+});
+
 // List a specific pair of shoes
 router.get("/sneakers/:id", (req, res) => {
 
 });
 
-// Display the form to update a specific pair of shoes
-router.get('/sneakers/:id/update', (req, res) => {
-
-});
 
 // Update the specific pair of shoes
-router.post('/urls/:id', (req, res) => {
+router.put('/sneakers/:id', (req, res) => {
 
 });
 
