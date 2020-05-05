@@ -10,9 +10,9 @@ db.connect();
  * Get all the users.
  * @return {Promise<{}>} A promise with the list of users.
  */
-const getUsers = function() {
-  const query = `SELECT * FROM users`
-  return db.query(query)
+const getAllUsers = function() {
+  const querySQL = `SELECT * FROM users`
+  return db.query(querySQL)
   .then(res => {
     if(res.rows) {
       return res;
@@ -22,7 +22,7 @@ const getUsers = function() {
   })
   .catch(err => console.log('eror', err));
 }
-exports.getUsers = getUsers;
+exports.getAllUsers = getAllUsers;
 
 /// Widgets
 
@@ -31,8 +31,8 @@ exports.getUsers = getUsers;
  * @return {Promise<{}>} A promise with the list of widgets.
  */
 const getWidgets = function() {
-  const query = `SELECT * FROM widgets`
-  return db.query(query)
+  const querySQL = `SELECT * FROM widgets`
+  return db.query(querySQL)
   .then(res => {
     if(res.rows) {
       return res;
@@ -51,9 +51,9 @@ exports.getWidgets = getWidgets;
  * @param {String} email The email of the user.
  * @return {Promise<{}>} A promise to the user.
  */
-const getShoes = function() {
-  const query = `SELECT * FROM items`
-  return db.query(query)
+const getAllSneakers = function() {
+  const querySQL = `SELECT * FROM items`
+  return db.query(querySQL)
   .then(res => {
     if(res.rows) {
       return res;
@@ -63,7 +63,7 @@ const getShoes = function() {
   })
   .catch(err => console.log('eror', err));
 }
-exports.getShoes = getShoes;
+exports.getAllSneakers = getAllSneakers;
 
 /**
  * Get a list of shoes for each owner
@@ -71,11 +71,11 @@ exports.getShoes = getShoes;
  * @return {Promise<{}>} A promise with the list of shoes.
  */
 const getShoesBySeller = function(email) {
-  const query = `SELECT items.brand, items.title, items.price, items.description, items.cover_photo_url
+  const querySQL = `SELECT items.brand, items.title, items.price, items.description, items.cover_photo_url
   FROM items
   JOIN users ON users.id = admin_id
   WHERE users.email=$1`
-  return db.query(query,[email])
+  return db.query(querySQL,[email])
   .then(res => {
     if(res.rows) {
       return res;
@@ -94,11 +94,11 @@ exports.getShoesBySeller = getShoesBySeller;
  * @return {Promise<{}>} A promise to the new pair of shoes.
  */
 
- const addShoes = function(shoes){
-   const query = `INSERT INTO items (admin_id, brand, title, price, colour, size, description, cover_photo_url, gender, active)
+ const addSneaker = function(sneaker){
+   const querySQL = `INSERT INTO items (admin_id, brand, title, price, colour, size, description, cover_photo_url, gender, active)
    VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
    RETURNING *`
-   return db.query(query,[items.admin_id,items.brand, items.title, items.price, items.colour, items.size, items.description, items.cover_photo_url, items.gender, items.active])
+   return db.query(querySQL,[sneaker.admin_id,sneaker.brand, sneaker.title, sneaker.price, sneaker.colour, sneaker.size, sneaker.description, sneaker.cover_photo_url, sneaker.gender, sneaker.active])
    .then(res => {
      if(res.rows) {
        return res;
@@ -107,14 +107,34 @@ exports.getShoesBySeller = getShoesBySeller;
       }
     })
   .catch(err => console.log('error', err));
-
  }
- exports.addShoes = addShoes;
+ exports.addSneaker = addSneaker;
+
+ const getUserWithEmail = function (email) {
+   const querySQL = `SELECT * FROM users WHERE email = $1;`
+   return db.query(querySQL,[email])
+    .then((res) => res.rows[0]);
+  }
+  exports.getUserWithEmail = getUserWithEmail;
+
+  const findFavouriteSneaker = (id) => {
+    const querySQL = `SELECT * FROM favourites WHERE user_id = $1`
+    return db.query(querySQL, [id])
+      .then((res) => res.rows);
+  };
+  exports.findFavouriteSneaker = findFavouriteSneaker;
+
+  const getFavouriteSneakers = function (user) {
+    const querySQL = `SELECT item_id FROM favourites WHERE user_id = $1`
+    return db.query(querySQL,[user])
+    .then((res) => res.rowss);
+  };
+  exports.getFavouriteSneakers = getFavouriteSneakers;
 
 
-
-
-
-
-
-
+  const getUserWithId = function (id) {
+    const querySQL = `SELECT * FROM users WHERE id = $1;`
+    return db.query(querySQL,[id])
+      .then((res) => res.rows[0]);
+  };
+  exports.getUserWithId = getUserWithId;

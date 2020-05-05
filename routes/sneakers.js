@@ -9,7 +9,7 @@ const router = express.Router();
 const database = require('../db/database');
 
 router.get("/", (req, res) => {
-  database.getShoes()
+  database.getAllSneakers()
   .then(data => {
     const shoes = data.rows;
     res.json({ shoes });
