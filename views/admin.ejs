@@ -11,10 +11,13 @@
     <!-- App CSS -->
     <link rel="stylesheet" href="/styles/layout.css" type="text/css"/>
   </head>
+  <header>
+    <%- include('partials/_header') %>
+  </header>
   <body>
   <!-- Add a new Product -->
-    <header class="product">
       <section class="new-product">
+        <h4>Create a new product</h4>
         <form class="create-product" action="/new" method="POST">
           <div class="brand-group">
             <input type="text" class="form-control" id="brand" placeholder="Shoe's brand">
@@ -45,11 +48,10 @@
           </section>
         </form>
       </section>
-    </header>
     <!-- Existing Products -->
     <main class="main">
       <section class="shoes-by-seller">
-        <h1>Existing Productos</h1>
+        <h4>Existing Products</h4>
           <% for(let each of sneakers) { %>
           <div class="card" style="width: 18rem;">
             <div class="card-body">
