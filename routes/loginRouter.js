@@ -22,9 +22,14 @@ router.post("/", (req, res) => {
         return;
       }
       req.session.userId = user.id;
-      res.send({ user: { name: user.name, email: user.email, id: user.id } });
+      // res.send({ user: { name: user.name, email: user.email, id: user.id } });
+      res.redirect("/");
     })
     .catch((e) => res.send(e));
+});
+
+router.get("/", (req, res) => {
+  res.render("index");
 });
 
 module.exports = router;

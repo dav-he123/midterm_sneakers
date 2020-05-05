@@ -47,24 +47,11 @@ router.post("/", (req, res) => {
   let messageText = req.body.new_message;
   res.cookie("messageText", req.body.messages);
 
-  // console.log(messageText);
-
-  // console.log(messageText);
-
-  // const sql = "INSERT INTO messages (from_user_id, to_user_id, item_id, message) VALUES (5, 5, 5, $1);"
-
-  // console.log(sql);
-
-  // // db.query('INSERT INTO messages (from_user_id, to_user_id, item_id, message) VALUES (2,3,5, "hello")')
-  // db.query(sql, [messageText])
-
   database
     .postMessages(messageText)
 
     .then((data) => {
       console.log(data);
-      // // res.redirect("/")
-      // res.send(req.body);
     })
     .catch((error) => {
       console.log(error);
@@ -73,5 +60,4 @@ router.post("/", (req, res) => {
 
 module.exports = router;
 
-// return router;
-// };
+
