@@ -21,13 +21,16 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/myShoes", (req, res) => {
+router.get("/admin", (req, res) => {
   const email = 'lera_hahn@dickens.org';
   // const email = req.session.email;
   database.getShoesBySeller(email)
   .then(data => {
     const shoes = data.rows;
-    res.json({ shoes });
+    let templateVars = {
+      sneakers: shoes
+    }
+    res.render("admin", templateVars );
   })
   .catch(err => {
     res
