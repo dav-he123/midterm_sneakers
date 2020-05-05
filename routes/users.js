@@ -38,6 +38,7 @@ module.exports = (db) => {
         }
         req.session.userId = user.id;
         res.send({ user: { name: user.name, email: user.email, id: user.id } });
+
         // res.redirect("/");
       })
       .catch((e) => res.send(e));
@@ -73,17 +74,16 @@ module.exports = (db) => {
   //   });
   // });
 
-  router.get("/test", (req, res) => {
-    db.getAllSneakers()
-      .then((sneakers) => {
-        // res.json({ sneakers });
-
-        res.render("index", { data: sneakers });
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
-  });
+  // router.get("/test", (req, res) => {
+  //   db.getAllSneakers()
+  //     .then((sneakers) => {
+  //       // res.json({ sneakers });
+  //       res.render("index", { data: sneakers });
+  //     })
+  //     .catch((err) => {
+  //       res.status(500).json({ error: err.message });
+  //     });
+  // });
 
   // router.get("/", (req, res) => {
   //   db.query(`SELECT * FROM users;`)
