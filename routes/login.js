@@ -1,6 +1,6 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const database = require('../db/database');
+const database = require("../db/database");
 
 const login = function (email) {
   return database.getUserWithEmail(email).then((user) => {
@@ -13,6 +13,8 @@ const login = function (email) {
 
 router.post("/", (req, res) => {
   const { email } = req.body;
+  res.cookie("email", req.body.email);
+  // res.sendStatus(200);
   login(email)
     .then((user) => {
       if (!user) {
@@ -27,8 +29,6 @@ router.post("/", (req, res) => {
 
 module.exports = router;
 exports.login = login;
-
-
 
 // const db = require("../db/database");
 // // console.log("hello");
