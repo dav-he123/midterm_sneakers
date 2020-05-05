@@ -39,4 +39,12 @@ router.get("/admin", (req, res) => {
   });
 });
 
+router.get("/sneakers/:id", (req, res) => {
+
+
+});
+
+
 module.exports = router;
+
+

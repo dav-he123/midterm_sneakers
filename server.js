@@ -10,14 +10,13 @@ const cookieParser = require("cookie-parser");
 const sass = require("node-sass-middleware");
 const app = express();
 const morgan = require("morgan");
+const cookieSession = require("cookie-session");
 
 //Routes
-const sneakersRouter = require("./routes/sneakers");
-const usersRouter = require("./routes/users");
-const loginRouter = require("./routes/login");
-const widgetsRouter = require("./routes/widgets");
-const cookieSession = require("cookie-session");
-const messagesRoutes = require("./routes/messages");
+const sneakersRouter = require("./routes/sneakersRouter");
+const usersRouter = require("./routes/usersRouter");
+const loginRouter = require("./routes/loginRouter");
+const messagesRouter = require("./routes/messagesRouter");
 
 // const db = require("./db/database");
 
@@ -42,26 +41,12 @@ app.use(cookieParser());
 app.use(cookieSession({ name: "user_id", secret: "asdfg" }));
 
 // endpoints
-app.use("/sneakers", sneakersRouter);
+app.use("/", sneakersRouter);
 app.use("/users", usersRouter);
-app.use("/widgets", widgetsRouter);
 app.use("/login", loginRouter);
-app.use("/messages", messagesRoutes);
+app.use("/messages", messagesRouter);
 
-// Mount all resource routes
-// Note: Feel free to replace the example routes below with your own
-// app.use("/api/users", usersRoutes(db));
-// app.use("/api/widgets", widgetsRoutes(db));
-// app.use("/api/favourites", favouritesRoutes(db));
 
-// Note: mount other resources here, using the same pattern above
-
-// Home page
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
-app.get("/login", (req, res) => {
-  res.render("index");
-});
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT} 😎`);
