@@ -1,109 +1,140 @@
-const { Pool } = require("pg");
+// PG database client/connection setup
+const { Pool } = require('pg');
+const dbParams = require('../lib/db');
+const db = new Pool(dbParams);
+db.connect();
 
-const pool = new Pool({
-  user: "postgres",
-  password: "postgres",
-  host: "localhost",
-  database: "midterm",
-});
+/// Users
 
-pool.connect();
+/**
+ * Get all the users.
+ * @return {Promise<{}>} A promise with the list of users.
+ */
+const getAllUsers = function() {
+  const querySQL = `SELECT * FROM users`
+  return db.query(querySQL)
+  .then(res => {
+    if(res.rows) {
+      return res;
+    } else {
+      return null
+    }
+  })
+  .catch(err => console.log('eror', err));
+}
+exports.getAllUsers = getAllUsers;
 
-const getAllUsers = () => {
-  return pool.query(`SELECT * FROM users`).then((res) => {
-    //console.log(res.rows);
-    return res.rows;
-  });
-};
+/// Widgets
 
-const getAllSneakers = () => {
-  return pool.query(`SELECT * FROM items`).then((res) => {
-    return res.rows;
-  });
-};
+/**
+ * Get all the widgets.
+ * @return {Promise<{}>} A promise with the list of widgets.
+ */
+const getWidgets = function() {
+  const querySQL = `SELECT * FROM widgets`
+  return db.query(querySQL)
+  .then(res => {
+    if(res.rows) {
+      return res;
+    } else {
+      return null
+    }
+  })
+  .catch(err => console.log('eror', err));
+}
+exports.getWidgets = getWidgets;
 
-const getUserWithEmail = function (email) {
-  return pool
-    .query(
-      `
-    SELECT * FROM users
-    WHERE email = $1;
+/// Shoes
 
-    `,
-      [email]
-    )
+/**
+ * Get a list of shoes
+ * @param {String} email The email of the user.
+ * @return {Promise<{}>} A promise to the user.
+ */
+const getAllSneakers = function() {
+  const querySQL = `SELECT * FROM items`
+  return db.query(querySQL)
+  .then(res => {
+    if(res.rows) {
+      return res;
+    } else {
+      return null
+    }
+  })
+  .catch(err => console.log('eror', err));
+}
+exports.getAllSneakers = getAllSneakers;
+
+/**
+ * Get a list of shoes for each owner
+ * @param {String} email The email of the owner.
+ * @return {Promise<{}>} A promise with the list of shoes.
+ */
+const getShoesBySeller = function(email) {
+  const querySQL = `SELECT items.brand, items.title, items.price, items.description, items.cover_photo_url
+  FROM items
+  JOIN users ON users.id = admin_id
+  WHERE users.email=$1`
+  return db.query(querySQL,[email])
+  .then(res => {
+    if(res.rows) {
+      return res;
+    } else {
+      return null
+    }
+  })
+  .catch(err => console.log('error', err));
+}
+exports.getShoesBySeller = getShoesBySeller;
+
+
+/**
+ * Add a new pair of shoes to sell.
+ * @param {{brand: string, title: string, price: int, colour: string, size: int, description: string, cover_photo_url:string, gender: string, active: boolean}} shoes
+ * @return {Promise<{}>} A promise to the new pair of shoes.
+ */
+
+ const addSneaker = function(sneaker){
+   const querySQL = `INSERT INTO items (admin_id, brand, title, price, colour, size, description, cover_photo_url, gender, active)
+   VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+   RETURNING *`
+   return db.query(querySQL,[sneaker.admin_id,sneaker.brand, sneaker.title, sneaker.price, sneaker.colour, sneaker.size, sneaker.description, sneaker.cover_photo_url, sneaker.gender, sneaker.active])
+   .then(res => {
+     if(res.rows) {
+       return res;
+      } else {
+        return null
+      }
+    })
+  .catch(err => console.log('error', err));
+ }
+ exports.addSneaker = addSneaker;
+
+ const getUserWithEmail = function (email) {
+   const querySQL = `SELECT * FROM users WHERE email = $1;`
+   return db.query(querySQL,[email])
     .then((res) => res.rows[0]);
-};
+  }
+  exports.getUserWithEmail = getUserWithEmail;
 
-// const getFeaturedSneakers = function () {
-//   return pool
-//     .query(`SELECT * FROM items WHERE active = true`)
-//     .then((res) => res.rows);
-// };
+  const findFavouriteSneaker = (id) => {
+    const querySQL = `SELECT * FROM favourites WHERE user_id = $1`
+    return db.query(querySQL, [id])
+      .then((res) => res.rows);
+  };
+  exports.findFavouriteSneaker = findFavouriteSneaker;
 
-const addListingSneakers = (sneaker) => {
-  return pool
-    .query(
-      `
-  INSERT INTO items (id, admin_id, brand, title, price, colour, size, description, cover_photo_url, gender, active)
-  VALUES (1, $1, $2, $3, $4, $5, $6, $7, $8, $9, true)
-  RETURNING *;
-`,
-      [
-        sneaker.brand,
-        sneaker.title,
-        sneaker.price,
-        sneaker.colour,
-        sneaker.size,
-        sneaker.description,
-        sneaker.cover_photo,
-        sneaker.gender,
-      ]
-    )
-    .then((res) => res.rows[0]);
-};
+  const getFavouriteSneakers = function (user) {
+    const querySQL = `SELECT item_id FROM favourites WHERE user_id = $1`
+    return db.query(querySQL,[user])
+    .then((res) => res.rowss);
+  };
+  exports.getFavouriteSneakers = getFavouriteSneakers;
 
-const findFavouriteSneaker = (id) => {
-  return pool
-    .query(`SELECT * FROM favourites WHERE user_id = $1`, [id])
-    .then((res) => res.rows);
-};
 
-const getFavouriteSneakers = function (user) {
-  return pool
-    .query(
-      `
-    SELECT item_id FROM favourites 
-    WHERE user_id = $1
-
-    `,
-      [user]
-    )
-    .then((res) => res.rows);
-};
-
-const getUserWithId = function (id) {
-  return pool
-    .query(
-      `
-  SELECT * FROM users
-  WHERE id = $1;
-
-  `,
-      [id]
-    )
-    .then((res) => res.rows[0]);
-
-  // return Promise.resolve(users[id]);
-};
-
-module.exports = {
-  getAllUsers,
-  getUserWithEmail,
-  getUserWithId,
-  getFavouriteSneakers,
-  addListingSneakers,
-  findFavouriteSneaker,
-  getAllSneakers,
-  // getFeaturedSneakers,
-};
+  const getUserWithId = function (id) {
+    const querySQL = `SELECT * FROM users WHERE id = $1;`
+    return db.query(querySQL,[id])
+      .then((res) => res.rows[0]);
+  };
+  exports.getUserWithId = getUserWithId;

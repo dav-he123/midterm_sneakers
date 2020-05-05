@@ -1,3 +1,35 @@
+const express = require('express');
+const router = express.Router();
+const database = require('../db/database');
+
+const login = function (email) {
+  return database.getUserWithEmail(email).then((user) => {
+    if (user) {
+      return user.email;
+    }
+    return null;
+  });
+};
+
+router.post("/", (req, res) => {
+  const { email } = req.body;
+  login(email)
+    .then((user) => {
+      if (!user) {
+        res.send({ error: "error" });
+        return;
+      }
+      req.session.userId = user.id;
+      res.send({ user: { name: user.name, email: user.email, id: user.id } });
+    })
+    .catch((e) => res.send(e));
+});
+
+module.exports = router;
+exports.login = login;
+
+
+
 // const db = require("../db/database");
 // // console.log("hello");
 
