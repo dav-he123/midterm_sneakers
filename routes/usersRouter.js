@@ -57,7 +57,7 @@ router.get("/favourites", (req, res) => {
   // let user_Email = decodeURIComponent(req.headers.cookie.slice(9));
 
   database.getAllUsers().then((users) => {
-    // console.log("users", users);
+    console.log("users", users);
     let userID;
     for (let key of users.rows) {
       // if (user_Email === key.email) {
@@ -72,6 +72,8 @@ router.get("/favourites", (req, res) => {
       let arrFav = [];
       for (let key of favouriteSneakers) {
         console.log(key);
+
+        arrFav.push(key.item_id);
       }
       //     database.getAllItems().then((items) => {
       //       const favItems = items.filter((item) => arrFav.includes(item.id));
@@ -80,6 +82,8 @@ router.get("/favourites", (req, res) => {
     });
   });
 });
+
+// router.post()
 
 // router.get("/favourites", (req, res) => {
 //   // console.log(res);
