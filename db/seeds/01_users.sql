@@ -41,8 +41,3 @@ INSERT INTO users (id, name, email) VALUES (39, 'Bianka Spinka', 'jensen.ullrich
 INSERT INTO users (id, name, email) VALUES (40, 'Dewitt Sipes', 'hildegard.gaylord@hotmail.com');
 
 ALTER SEQUENCE users_id_seq RESTART WITH 41;
-
-SELECT items.brand, items.title, items.price
-FROM items
-JOIN users ON users.id = admin_id
-WHERE users.email = 'lera_hahn@dickens.org';

@@ -8,6 +8,7 @@ const express = require('express');
 const router = express.Router();
 const database = require('../db/database');
 
+// List of sneakers
 router.get("/", (req, res) => {
   database.getAllSneakers()
   .then(data => {
@@ -21,9 +22,10 @@ router.get("/", (req, res) => {
   });
 });
 
+// List of sneakers that belongs to an owner
 router.get("/admin", (req, res) => {
-  const email = 'lera_hahn@dickens.org';
-  // const email = req.session.email;
+  const email = req.cookies.email;
+  console.log(req.cookies);
   database.getShoesBySeller(email)
   .then(data => {
     const shoes = data.rows;
@@ -39,12 +41,61 @@ router.get("/admin", (req, res) => {
   });
 });
 
-router.get("/sneakers/:id", (req, res) => {
+// Create a new pair of shoes
+router.post("/sneakers/new", (req, res) => {
+  let sneaker = req.body;
+  database.addSneaker(sneaker)
+    .then((data) => {
+      const shoes = data.rows;
+      res.redirect(`/sneakers/${shoes[0].id}`);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
 
+// List a specific pair of shoes
+router.get("/sneakers/:id", (req, res) => {
+  // const email = req.session.id;
+  database.getSneakersById(id)
+  .then(data => {
+    const shoes = data.rows;
+    let templateVars = {
+      sneakers: shoes
+    }
+    res.render("sneakers_details", templateVars );
+  })
+  .catch(err => {
+    res
+    .status(500)
+    .json({ error: err.message });
+  });
+});
+
+
+// Update the specific pair of shoes
+router.put('/sneakers/:id', (req, res) => {
+
+});
+
+// Delete a specific pair of shoes
+router.post("/sneakers/:id/delete", (req, res) => {
 
 });
 
 
+
 module.exports = router;
 
-
+/*
+router.get('/urls', (req, res) => {
+  if (req.session["user_id"]) {
+    let templateVars = {
+      user: userByID(req.session.user_id),
+      urls: urlsByUser(req.session.user_id)
+    };
+    res.render("urls_index", templateVars);
+  } else {
+    res.status(401).send('Unauthorized, please <a href="/login"> Login </a>');
+  }
+}); */

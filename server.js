@@ -38,7 +38,7 @@ app.use(
 );
 app.use(express.static("public"));
 app.use(cookieParser());
-app.use(cookieSession({ name: "user_id", secret: "asdfg" }));
+app.use(cookieSession({ name: "user_id", secret: "asdfg"}));
 
 // endpoints
 app.use("/", sneakersRouter);

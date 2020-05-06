@@ -34,4 +34,4 @@ INSERT INTO items (id,admin_id, brand, title, price, colour, size, description, 
 INSERT INTO items (id,admin_id, brand, title, price, colour, size, description, cover_photo_url, gender, active) VALUES (34,4,'Converse','Converse Chuck Taylor All-Star Ox Pride White',60,'White/Multi-Black',6,'Keep up the pace during your workout routine with those shoes. These shoes are designed to provide comfort and to support your feet while you are at the gym.','https://stockx.imgix.net/Converse-Chuck-Taylor-All-Star-Ox-Pride-White-2019.png?fit=fill&bg=FFFFFF&w=700&h=500&auto=format,compress&trim=color&q=90&dpr=2&updated_at=1557198525','men',true);
 
 
-ALTER SEQUENCE users_id_seq RESTART WITH 35;
+ALTER SEQUENCE items_id_seq RESTART WITH 35;
