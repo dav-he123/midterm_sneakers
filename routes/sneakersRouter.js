@@ -24,8 +24,8 @@ router.get("/", (req, res) => {
 
 // List of sneakers that belongs to an owner
 router.get("/admin", (req, res) => {
-  const email = req.cookies.email;
-  database.getShoesBySeller(email)
+  const user_id = req.cookies.user_id;
+  database.getShoesBySeller(user_id)
   .then(data => {
     const shoes = data.rows;
     let templateVars = {
@@ -43,6 +43,7 @@ router.get("/admin", (req, res) => {
 // Create a new pair of shoes
 router.post("/sneakers/new", (req, res) => {
   let sneaker = req.body;
+  sneaker.admin_id = req.cookies.user_id;
   database.addSneaker(sneaker)
     .then((data) => {
       const shoes = data.rows;
@@ -56,6 +57,7 @@ router.post("/sneakers/new", (req, res) => {
 // List a specific pair of shoes
 router.get("/sneakers/:id", (req, res) => {
   const id = (req.params.id);
+
   database.getSneakersById(id)
   .then(data => {
     const shoes = data.rows;

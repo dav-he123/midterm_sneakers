@@ -66,12 +66,12 @@ exports.getAllSneakers = getAllSneakers;
  * @param {String} email of the owner.
  * @return {Promise<{}>} A promise with the list of snekers.
  */
-const getShoesBySeller = function(email) {
+const getShoesBySeller = function(user_id) {
   const querySQL = `SELECT items.brand, items.title, items.price, items.description, items.cover_photo_url
   FROM items
   JOIN users ON users.id = admin_id
-  WHERE users.email=$1`
-  return db.query(querySQL,[email])
+  WHERE users.id=$1`
+  return db.query(querySQL,[user_id])
   .then(res => {
     if(res.rows) {
       return res;
