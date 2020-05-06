@@ -112,7 +112,7 @@ exports.getShoesBySeller = getShoesBySeller;
  */
 
 const getSneakersById = function(id){
-  const querySQL = `SELECT brand, title, price, size, description, cover_photo_url FROM items WHERE id = $1`
+  const querySQL = `SELECT id, brand, title, price, size, description, cover_photo_url FROM items WHERE id = $1`
   return db.query(querySQL,[id])
   .then(res => {
     if(res.rows) {

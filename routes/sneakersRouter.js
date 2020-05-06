@@ -61,7 +61,7 @@ router.get("/sneakers/:id", (req, res) => {
   .then(data => {
     const shoes = data.rows;
     let templateVars = {
-      sneakers: shoes
+      sneakers: shoes[0]
     }
     res.render("sneakers_details", templateVars );
   })
