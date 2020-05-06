@@ -16,59 +16,79 @@
   </header>
   <body>
   <!-- Add a new Product -->
-      <section class="new-product">
-        <h4>Create a new product</h4>
-        <form class="create-product" action="/sneakers/new" method="POST">
-          <input type="hidden" class="form-control" id="admin_id" name="admin_id" value="1">
-          <div class="brand-group">
-            <input type="text" class="form-control" id="brand" name="brand" placeholder="Shoe's brand">
+  <section class="wrap card-body">
+      <section class="body-section">
+        <h1>Create a new product</h1>
+        <form class="create-product" action="/new" method="POST">
+          <div class="new-product-header">
+            <input type="hidden" class="form-control" id="admin_id" name="admin_id" value="1">
+            <div class="brand-group">
+              <input type="text" class="form-control" id="brand" name="brand" placeholder="Shoe's brand">
+            </div>
+            <div class="title-group">
+              <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+            </div>
           </div>
-          <div class="title-group">
-            <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+
+          <div class="new-product-body">
+            <div class="size-group">
+              <label for="size">Size</label>
+              <select class="size-control" id="size" name="size">
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+              </select>
+            </div>
+            <div class="price-group">
+              <input type="text" class="form-control" id="price" name="price" placeholder="Price">
+            </div>
           </div>
-          <div class="size-group">
-            <label for="size">Size</label>
-            <select class="size-control" id="size" name="size">
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
-              <option>11</option>
-              <option>12</option>
-            </select>
+
+          <div class="new-product-footer">
+            <div class="description-group">
+              <input type="text" class="form-control" id="description"  name="description" placeholder="Description">
+            </div>
           </div>
-          <div class="price-group">
-            <input type="text" class="form-control" id="price" name="price" placeholder="Price">
-          </div>
-          <div class="description-group">
-            <input type="text" class="form-control" id="description" name="description" placeholder="Description">
-          </div>
+
           <input type="hidden" class="form-control" id="colour" name="colour" value="red">
           <input type="hidden" class="form-control" id="gender" name="gender" value="male">
           <input type="hidden" class="form-control" id="cover_photo_url" name="cover_photo_url" value="http">
+
           <section class="button-create">
             <button type="submit" class="btn btn-primary">Create Product</button>
           </section>
+
         </form>
-      </section>
+
     <!-- Existing Products -->
     <main class="main">
+
+      <h1>Existing Products</h1>
       <section class="shoes-by-seller">
-        <h4>Existing Products</h4>
+
           <% for(let each of sneakers) { %>
-          <div class="card" style="width: 18rem;">
+          <div class="card">
             <div class="card-body">
               <h5 class="card-title"><%= each.title %></h5>
               <p class="card-text"><%= each.brand %></p>
               <p class="card-text"><%= each.price %></p>
+            </div>
+            <div class="card-footer">
               <a href="#" class="btn btn-success">Mark Sold</a>
               <a href="#" class="btn btn-danger">Delete</a>
             </div>
+
           </div>
           <% } %>
         </section>
     </main>
+      </section>
+
+  </section>
   </body>
 </html>
 
