@@ -46,7 +46,8 @@ router.post("/sneakers/new", (req, res) => {
   let sneaker = req.body;
   database.addSneaker(sneaker)
     .then((data) => {
-      res.redirect(`/sneakers/${data.id}`);
+      const shoes = data.rows;
+      res.redirect(`/sneakers/${shoes[0].id}`);
     })
     .catch((error) => {
       console.log(error);
@@ -55,7 +56,21 @@ router.post("/sneakers/new", (req, res) => {
 
 // List a specific pair of shoes
 router.get("/sneakers/:id", (req, res) => {
-
+  const id = 2;
+  // const email = req.session.id;
+  database.getSneakersById(id)
+  .then(data => {
+    const shoes = data.rows;
+    let templateVars = {
+      sneakers: shoes
+    }
+    res.render("sneaker_details", templateVars );
+  })
+  .catch(err => {
+    res
+    .status(500)
+    .json({ error: err.message });
+  });
 });
 
 
