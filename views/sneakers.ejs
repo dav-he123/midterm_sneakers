@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta Information -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Sneakers - Home Page</title>
+    <!-- External CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <!-- App CSS -->
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <header>
+      <%- include('partials/_header') %>
+    </header>
+  </head>
+
+  <body>
+    <main class="main">
+      <section class="shoes-by-seller">
+        <h4>Existing Products</h4>
+        <% for(let sneaker of sneakers) { %>
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title"><%= sneaker.title %></h5>
+            <p class="card-text"><%= sneaker.brand %></p>
+            <p class="card-text"><%= sneaker.price %></p>
+            <a href="#" class="btn btn-success">Mark Sold</a>
+            <a href="#" class="btn btn-danger">Delete</a>
+          </div>
+        </div>
+        <% } %>
+      </section>
+    </main>
+  </body>
+</html>

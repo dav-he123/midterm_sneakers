@@ -139,7 +139,7 @@ exports.findFavouriteSneaker = findFavouriteSneaker;
 
 const getFavouriteSneakers = function (user) {
   const querySQL = `SELECT item_id FROM favourites WHERE user_id = $1`;
-  return db.query(querySQL, [user]).then((res) => res.rowss);
+  return db.query(querySQL, [user]).then((res) => res.rows);
 };
 exports.getFavouriteSneakers = getFavouriteSneakers;
 
