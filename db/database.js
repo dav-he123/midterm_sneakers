@@ -63,8 +63,8 @@ exports.getAllSneakers = getAllSneakers;
 
 /**
  * Get a list of sneakers for each owner
- * @param {String} email of the owner.
- * @return {Promise<{}>} A promise with the list of snekers.
+ * @param {String} use user_id of the owner.
+ * @return {Promise<{}>} A promise with the list of sneakers.
  */
 const getShoesBySeller = function(user_id) {
   const querySQL = `SELECT items.id, items.brand, items.title, items.price, items.description, items.cover_photo_url
@@ -125,12 +125,31 @@ const getSneakersById = function(id){
 }
 exports.getSneakersById = getSneakersById;
 
+/**
+ * Update a specific pair of sneakers
+ * @param {{id}} sneaker's id
+ * @return {Promise<{}>} Succesful promise of deleted item.
+ */
+
+const updateSneakerById = function(sneaker){
+  const querySQL = `UPDATE items SET active = $1 WHERE id = $2`
+  return db.query(querySQL,[sneaker.active, sneaker.id,])
+  .then(res => {
+    if(res.rows) {
+      return res;
+     } else {
+       return null
+     }
+   })
+ .catch(err => console.log('error', err));
+}
+exports.updateSneakerById = updateSneakerById;
 
 
 /**
- * List a specific sneaker
- * @param {{id}} shoes
- * @return {Promise<{}>} A promise to the new pair of shoes.
+ * Delete a specific pair of sneakers
+ * @param {{id}} sneaker's id
+ * @return {Promise<{}>} Succesful promise of deleted item.
  */
 
 const delSneakerById = function(id){

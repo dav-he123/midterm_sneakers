@@ -42,7 +42,7 @@ router.get("/admin", (req, res) => {
 
 // Create a new pair of shoes
 router.post("/sneakers/new", (req, res) => {
-  let sneaker = req.body;
+  const sneaker = req.body;
   sneaker.admin_id = req.cookies.user_id;
   database.addSneaker(sneaker)
     .then((data) => {
@@ -74,13 +74,15 @@ router.get("/sneakers/:id", (req, res) => {
 
 
 // Update the specific pair of shoes
-router.put('/sneakers/:id', (req, res) => {
-
+router.post('/sneakers/:id', (req, res) => {
+  const sneaker = {id: req.params.id, active: 'false'}
+  database.updateSneakerById(sneaker)
+  res.redirect('/admin');
 });
 
 // Delete a specific pair of shoes
 router.post("/sneakers/:id/delete", (req, res) => {
-  const id = (req.params.id);
+  const id = req.params.id;
   database.delSneakerById(id)
   res.redirect('/admin');
 });
