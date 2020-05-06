@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
   database
     .getAllSneakers()
     .then((data) => {
-      const sneakers = data.rows;
+      const sneakers = data;
       // res.json({ sneakers });
       res.render("sneakers", { sneakers: sneakers });
     })

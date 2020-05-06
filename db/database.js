@@ -15,11 +15,7 @@ const getAllUsers = function () {
   return db
     .query(querySQL)
     .then((res) => {
-      if (res.rows) {
-        return res;
-      } else {
-        return null;
-      }
+      return res.rows;
     })
     .catch((err) => console.log("eror", err));
 };
@@ -58,11 +54,7 @@ const getAllSneakers = function () {
   return db
     .query(querySQL)
     .then((res) => {
-      if (res.rows) {
-        return res;
-      } else {
-        return null;
-      }
+      return res.rows;
     })
     .catch((err) => console.log("eror", err));
 };
@@ -115,11 +107,7 @@ const addSneaker = function (sneaker) {
       sneaker.active,
     ])
     .then((res) => {
-      if (res.rows) {
-        return res;
-      } else {
-        return null;
-      }
+      return res.rows;
     })
     .catch((err) => console.log("error", err));
 };
