@@ -186,13 +186,16 @@ exports.getFavouriteSneakers = getFavouriteSneakers;
 
   /// Messages
 
-  const getMessages = function(userEmail) {
-    const querySQL = `SELECT * FROM messages
-    JOIN users ON to_user_id = users.id
+  const getMessages = function(userId) {
+    const querySQL = `SELECT from_users.id AS from_user_id, from_users.name AS from_user_name, to_users.name AS to_user_name, items.brand, items.title, STRING_AGG(messages.message, '|')
+    FROM messages
+    JOIN users AS to_users ON to_user_id = to_users.id
+    JOIN users AS from_users ON from_user_id = from_users.id
     JOIN items ON item_id = items.id
-    WHERE email = $1;`
+    WHERE to_users.id = $1
+    GROUP BY from_users.id, from_users.name, to_users.name, items.brand, items.title;`
 
-    return db.query(querySQL, [userEmail])
+    return db.query(querySQL, [userId])
       .then((res) => res);
   };
 
@@ -201,7 +204,7 @@ exports.getFavouriteSneakers = getFavouriteSneakers;
 const postMessages = function(messageText) {
 
   console.log(messageText);
-  const sql = "INSERT INTO messages (from_user_id, to_user_id, item_id, message) VALUES (4, 5, 5, $1) RETURNING *;"
+  const sql = "INSERT INTO messages (from_user_id, to_user_id, item_id, message) VALUES (4, 5, 5, $1);"
 
   return db.query(sql, [messageText])
   .then(res => {
