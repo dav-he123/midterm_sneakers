@@ -145,7 +145,7 @@ exports.getFavouriteSneakers = getFavouriteSneakers;
 
   /// Messages
 
-  const getMessages = function() {
+  const getMessages = function(userEmail) {
     const querySQL = `SELECT * FROM messages
     JOIN users ON to_user_id = users.id
     JOIN items ON item_id = items.id
