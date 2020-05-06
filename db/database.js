@@ -63,15 +63,15 @@ exports.getAllSneakers = getAllSneakers;
 
 /**
  * Get a list of sneakers for each owner
- * @param {String} email of the owner.
- * @return {Promise<{}>} A promise with the list of snekers.
+ * @param {String} use user_id of the owner.
+ * @return {Promise<{}>} A promise with the list of sneakers.
  */
-const getShoesBySeller = function(email) {
-  const querySQL = `SELECT items.brand, items.title, items.price, items.description, items.cover_photo_url
+const getShoesBySeller = function(user_id) {
+  const querySQL = `SELECT items.id, items.brand, items.title, items.price, items.description, items.cover_photo_url
   FROM items
   JOIN users ON users.id = admin_id
-  WHERE users.email=$1`
-  return db.query(querySQL,[email])
+  WHERE users.id=$1`
+  return db.query(querySQL,[user_id])
   .then(res => {
     if(res.rows) {
       return res;
@@ -106,13 +106,13 @@ exports.getShoesBySeller = getShoesBySeller;
  exports.addSneaker = addSneaker;
 
  /**
- * List a specific snaker
+ * List a specific sneaker
  * @param {{id}} shoes
  * @return {Promise<{}>} A promise to the new pair of shoes.
  */
 
 const getSneakersById = function(id){
-  const querySQL = `SELECT brand, title, price, size, details, cover_photo_url FROM items WHERE id = $1`
+  const querySQL = `SELECT id, brand, title, price, size, description, cover_photo_url FROM items WHERE id = $1`
   return db.query(querySQL,[id])
   .then(res => {
     if(res.rows) {
@@ -124,6 +124,47 @@ const getSneakersById = function(id){
  .catch(err => console.log('error', err));
 }
 exports.getSneakersById = getSneakersById;
+
+/**
+ * Update a specific pair of sneakers
+ * @param {{id}} sneaker's id
+ * @return {Promise<{}>} Succesful promise of deleted item.
+ */
+
+const updateSneakerById = function(sneaker){
+  const querySQL = `UPDATE items SET active = $1 WHERE id = $2`
+  return db.query(querySQL,[sneaker.active, sneaker.id,])
+  .then(res => {
+    if(res.rows) {
+      return res;
+     } else {
+       return null
+     }
+   })
+ .catch(err => console.log('error', err));
+}
+exports.updateSneakerById = updateSneakerById;
+
+
+/**
+ * Delete a specific pair of sneakers
+ * @param {{id}} sneaker's id
+ * @return {Promise<{}>} Succesful promise of deleted item.
+ */
+
+const delSneakerById = function(id){
+  const querySQL = `DELETE FROM items WHERE id = $1`
+  return db.query(querySQL,[id])
+  .then(res => {
+    if(res.rows) {
+      return res;
+     } else {
+       return null
+     }
+   })
+ .catch(err => console.log('error', err));
+}
+exports.delSneakerById = delSneakerById;
 
 
 /// Favourites

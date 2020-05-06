@@ -17,11 +17,10 @@
   <body>
   <!-- Add a new Product -->
   <section class="wrap card-body">
-      <section class="body-section">
+    <section class="body-section">
         <h1>Create a new product</h1>
         <form class="create-product" action="/sneakers/new" method="POST">
           <div class="new-product-header">
-            <input type="hidden" class="form-control" id="admin_id" name="admin_id" value="1">
             <div class="brand-group">
               <input type="text" class="form-control" id="brand" name="brand" placeholder="Shoe's brand">
             </div>
@@ -67,7 +66,7 @@
     <!-- Existing Products -->
     <main class="main">
 
-      <h1>Existing Products</h1>
+      <h1>Existing Sneakers</h1>
       <section class="shoes-by-seller">
 
           <% for(let each of sneakers) { %>
@@ -78,16 +77,19 @@
               <p class="card-text"><%= each.price %></p>
             </div>
             <div class="card-footer">
-              <a href="#" class="btn btn-success">Mark Sold</a>
-              <a href="#" class="btn btn-danger">Delete</a>
+              <form method="POST" action="/sneakers/<%= each.id %>">
+                <button type="put" class="btn btn-success">Mark Sold</button>
+              </form>
+              <form method="POST" action="/sneakers/<%= each.id %>/delete">
+                <button type="delete" class="btn btn-danger">Delete</button>
+              </form>
             </div>
 
           </div>
           <% } %>
         </section>
     </main>
-      </section>
-
+    </section>
   </section>
   </body>
 </html>

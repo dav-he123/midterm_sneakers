@@ -16,12 +16,17 @@
   </header>
   <body>
     <!-- Details of a Product -->
-    <main class="main">
-      <section class="shoes-by-seller">
-        <h4>Product Page</h4>
-
+    <section class="wrap card-body">
+      <section class="body-section">
+        <h1><%=sneakers.title %></h1>
+        <img src="<%= sneakers.cover_photo_url  %>" alt="Sneaker_details" height=100% width=300%>
+        <section>
+          <p>Brand:<%= sneakers.brand %></p>
+          <p>$<%= sneakers.price %></p>
+          <p>Description: <%= sneakers.description %></p>
         </section>
-    </main>
+      </section>
+    </section>
   </body>
 </html>
 
