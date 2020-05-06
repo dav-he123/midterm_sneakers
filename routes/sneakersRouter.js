@@ -24,8 +24,8 @@ router.get("/", (req, res) => {
 
 // List of sneakers that belongs to an owner
 router.get("/admin", (req, res) => {
-  const email = 'lera_hahn@dickens.org';
-  // const email = req.session.email;
+  const email = req.cookies.email;
+  console.log(req.cookies);
   database.getShoesBySeller(email)
   .then(data => {
     const shoes = data.rows;
@@ -87,4 +87,15 @@ router.post("/sneakers/:id/delete", (req, res) => {
 
 module.exports = router;
 
-
+/*
+router.get('/urls', (req, res) => {
+  if (req.session["user_id"]) {
+    let templateVars = {
+      user: userByID(req.session.user_id),
+      urls: urlsByUser(req.session.user_id)
+    };
+    res.render("urls_index", templateVars);
+  } else {
+    res.status(401).send('Unauthorized, please <a href="/login"> Login </a>');
+  }
+}); */
