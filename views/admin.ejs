@@ -18,16 +18,17 @@
   <!-- Add a new Product -->
       <section class="new-product">
         <h4>Create a new product</h4>
-        <form class="create-product" action="/new" method="POST">
+        <form class="create-product" action="/sneakers/new" method="POST">
+          <input type="hidden" class="form-control" id="admin_id" name="admin_id" value="1">
           <div class="brand-group">
-            <input type="text" class="form-control" id="brand" placeholder="Shoe's brand">
+            <input type="text" class="form-control" id="brand" name="brand" placeholder="Shoe's brand">
           </div>
           <div class="title-group">
-            <input type="text" class="form-control" id="title" placeholder="Title">
+            <input type="text" class="form-control" id="title" name="title" placeholder="Title">
           </div>
           <div class="size-group">
             <label for="size">Size</label>
-            <select class="size-control" id="size">
+            <select class="size-control" id="size" name="size">
               <option>6</option>
               <option>7</option>
               <option>8</option>
@@ -38,11 +39,14 @@
             </select>
           </div>
           <div class="price-group">
-            <input type="text" class="form-control" id="price" placeholder="Price">
+            <input type="text" class="form-control" id="price" name="price" placeholder="Price">
           </div>
           <div class="description-group">
-            <input type="text" class="form-control" id="description" placeholder="Description">
+            <input type="text" class="form-control" id="description" name="description" placeholder="Description">
           </div>
+          <input type="hidden" class="form-control" id="colour" name="colour" value="red">
+          <input type="hidden" class="form-control" id="gender" name="gender" value="male">
+          <input type="hidden" class="form-control" id="cover_photo_url" name="cover_photo_url" value="http">
           <section class="button-create">
             <button type="submit" class="btn btn-primary">Create Product</button>
           </section>

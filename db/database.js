@@ -96,9 +96,9 @@ exports.getShoesBySeller = getShoesBySeller;
 
  const addSneaker = function(sneaker){
    const querySQL = `INSERT INTO items (admin_id, brand, title, price, colour, size, description, cover_photo_url, gender, active)
-   VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+   VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, 'true')
    RETURNING *`
-   return db.query(querySQL,[sneaker.admin_id,sneaker.brand, sneaker.title, sneaker.price, sneaker.colour, sneaker.size, sneaker.description, sneaker.cover_photo_url, sneaker.gender, sneaker.active])
+   return db.query(querySQL,[sneaker.admin_id,sneaker.brand, sneaker.title, sneaker.price, sneaker.colour, sneaker.size, sneaker.description, sneaker.cover_photo_url, sneaker.gender])
    .then(res => {
      if(res.rows) {
        return res;
