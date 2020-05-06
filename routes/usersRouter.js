@@ -52,29 +52,61 @@ module.exports = router;
 //   res.sendStatus(200);
 // });
 
+router.get("/favourites", (req, res) => {
+  // console.log(res);
+  // let user_Email = decodeURIComponent(req.headers.cookie.slice(9));
+
+  database.getAllUsers().then((users) => {
+    // console.log("users", users);
+    let userID;
+    for (let key of users.rows) {
+      // if (user_Email === key.email) {
+      // console.log("key.id", key.id);
+      userID = key.id;
+      // }
+    }
+    console.log(userID);
+    database.getFavouriteSneakers(userID).then((favouriteSneakers) => {
+      console.log("favouriteSneakers", favouriteSneakers);
+
+      let arrFav = [];
+      for (let key of favouriteSneakers) {
+        console.log(key);
+      }
+      //     database.getAllItems().then((items) => {
+      //       const favItems = items.filter((item) => arrFav.includes(item.id));
+      //       res.json({ favItems });
+      //     });
+    });
+  });
+});
+
 // router.get("/favourites", (req, res) => {
-//   console.log(res);
-//   let userID;
-//   db.getAllUsers().then((users) => {
+//   // console.log(res);
+//   let user_Email = decodeURIComponent(req.headers.cookie.slice(9));
+
+//   database.getAllUsers().then((users) => {
+//     console.log("users", users);
+//     let userID;
 //     for (let key of users) {
-//       if (userEmail === key.email) {
-//         userID = key.id;
-//       }
+//       //   // if (user_Email === key.email) {
+//       console.log("key.id", key.id);
+//       userID = key.id;
 //     }
 //   });
-//   db.getFavouriteSneakers(userID).then((favourites) => {
-//     console.log(favourites);
+//   console.log(userID);
+// database.getFavouriteSneakers(userID).then((favouriteSneakers) => {
+//   console.log("favouriteSneakers", favouriteSneakers);
 
-//     let arrFav = [];
-//     for (let key of favourites) {
-//       arrFav.push(key.item_id);
-//     }
-
-//     db.getAllItems().then((items) => {
+// let arrFav = [];
+// for (let key of favouriteSneakers) {
+//   console.log(key);
+// }
+//     database.getAllItems().then((items) => {
 //       const favItems = items.filter((item) => arrFav.includes(item.id));
 //       res.json({ favItems });
 //     });
-//   });
+// });
 // });
 
 // router.get("/test", (req, res) => {
