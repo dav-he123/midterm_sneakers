@@ -1,16 +1,26 @@
 // See: https://sass-lang.com/
 
+header {
+  width: 100%;
+  // display: inline-block;
+
+}
+
 body {
   background-color: #EEE;
-  display: flex;
-  justify-content: center;
   color: #222f3e;
+
+  .wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
 
   h1 {
     color: #2e86de;
   }
 
-  .messages-section {
+  .body-section {
     width: 60%;
   }
 
@@ -18,6 +28,12 @@ body {
     background-color: white;
     padding: 20px 20px 20px 20px;
     margin-top: 20px;
+  }
+
+  #message-input {
+    width: 300px;
+    margin: 20px;
+    height: 100px;
   }
 
   .message-header {
@@ -30,5 +46,103 @@ body {
     margin: 20px;
   }
 
+  main {
+    margin-top: 20px;
+  }
+
+  .create-product {
+
+    padding: 10px;
+    background-color: white;
+
+    .new-product-header {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .brand-group {
+      width: 200px;
+      margin: 10px;
+    }
+
+    .title-group {
+      flex-grow: 1;
+      margin: 10px;
+    }
+
+    .new-product-body {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 10px;
+
+      .size-group {
+        margin-right: 20px;
+        margin-top: 5px;
+      }
+
+      .price-group {
+        flex-grow: 1;
+      }
+    }
+
+    .new-product-footer {
+      margin: 10px;
+      width: 100%;
+    }
+
+    .description-group {
+      margin-right: 20px;
+      margin-top: 20px;
+      height: 100px;
+    }
+
+    #description {
+      height: 100px;
+    }
+
+    .button-create {
+      margin: 10px;
+      margin-top: 20px;
+      display:flex;
+      justify-content: flex-end;
+    }
+  }
+
+  .shoes-by-seller {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+
+  .card {
+    width: 40%;
+    // flex-grow: 1;
+    margin: 10px;
+    height: 300px;
+
+    .card-footer{
+      text-align: right;
+
+      .btn{
+        margin-left: 10px;
+      }
+    }
+
+  }
+
+  #username {
+    margin: 20px;
+    width: 300px;
+  }
+
+  .login-btn{
+    width: 100px;
+  }
+
+
+
 
 }
+
+
+
