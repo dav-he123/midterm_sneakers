@@ -11,15 +11,11 @@ db.connect();
  * @return {Promise<{}>} A promise with the list of users.
  */
 const getAllUsers = function () {
-  const querySQL = `SELECT * FROM users`;
+  const querySQL = `SELECT * FROM users;`;
   return db
     .query(querySQL)
     .then((res) => {
-      if (res.rows) {
-        return res;
-      } else {
-        return null;
-      }
+      return res.rows;
     })
     .catch((err) => console.log("eror", err));
 };

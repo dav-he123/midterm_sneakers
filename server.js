@@ -46,8 +46,6 @@ app.use("/users", usersRouter);
 app.use("/login", loginRouter);
 app.use("/messages", messagesRouter);
 
-
-
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT} 😎`);
 });

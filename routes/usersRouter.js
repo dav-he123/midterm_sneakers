@@ -52,30 +52,34 @@ module.exports = router;
 //   res.sendStatus(200);
 // });
 
-// router.get("/favourites", (req, res) => {
-//   console.log(res);
-//   let userID;
-//   db.getAllUsers().then((users) => {
-//     for (let key of users) {
-//       if (userEmail === key.email) {
-//         userID = key.id;
-//       }
-//     }
-//   });
-//   db.getFavouriteSneakers(userID).then((favourites) => {
-//     console.log(favourites);
+router.get("/favourites", (req, res) => {
+  // console.log(res);
+  // let user_Email = decodeURIComponent(req.headers.cookie.slice(9));
 
-//     let arrFav = [];
-//     for (let key of favourites) {
-//       arrFav.push(key.item_id);
-//     }
+  database.getAllUsers().then((users) => {
+    // console.log("users", users);
+    let userID;
+    for (let key of users) {
+      // if (user_Email === key.email) {
+      // console.log("key.id", key.id);
+      userID = key.id;
+      // }
+    }
+    console.log(userID);
+    database.getFavouriteSneakers(userID).then((favouriteSneakers) => {
+      console.log("favouriteSneakers", favouriteSneakers);
 
-//     db.getAllItems().then((items) => {
-//       const favItems = items.filter((item) => arrFav.includes(item.id));
-//       res.json({ favItems });
-//     });
-//   });
-// });
+      let arrFav = [];
+      for (let key of favouriteSneakers) {
+        console.log(key);
+      }
+      //     database.getAllItems().then((items) => {
+      //       const favItems = items.filter((item) => arrFav.includes(item.id));
+      //       res.json({ favItems });
+      //     });
+    });
+  });
+});
 
 // router.get("/test", (req, res) => {
 //   db.getAllSneakers()
