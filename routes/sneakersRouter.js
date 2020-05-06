@@ -44,7 +44,6 @@ router.get("/admin", (req, res) => {
 // Create a new pair of shoes
 router.post("/sneakers/new", (req, res) => {
   let sneaker = req.body;
-  console.log(sneaker);
   database.addSneaker(sneaker)
     .then((data) => {
       res.redirect(`/sneakers/${data.id}`);
