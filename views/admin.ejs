@@ -77,8 +77,12 @@
               <p class="card-text"><%= each.price %></p>
             </div>
             <div class="card-footer">
-              <a href="#" class="btn btn-success">Mark Sold</a>
-              <a href="#" class="btn btn-danger">Delete</a>
+              <form method="POST" action="/sneakers/<%= each.id %>/put">
+                <button type="delete" class="btn btn-success">Mark Sold</button>
+              </form>
+              <form method="POST" action="/sneakers/<%= each.id %>/delete">
+                <button type="delete" class="btn btn-danger">Delete</button>
+              </form>
             </div>
 
           </div>

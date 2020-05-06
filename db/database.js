@@ -67,7 +67,7 @@ exports.getAllSneakers = getAllSneakers;
  * @return {Promise<{}>} A promise with the list of snekers.
  */
 const getShoesBySeller = function(user_id) {
-  const querySQL = `SELECT items.brand, items.title, items.price, items.description, items.cover_photo_url
+  const querySQL = `SELECT items.id, items.brand, items.title, items.price, items.description, items.cover_photo_url
   FROM items
   JOIN users ON users.id = admin_id
   WHERE users.id=$1`
@@ -106,7 +106,7 @@ exports.getShoesBySeller = getShoesBySeller;
  exports.addSneaker = addSneaker;
 
  /**
- * List a specific snaker
+ * List a specific sneaker
  * @param {{id}} shoes
  * @return {Promise<{}>} A promise to the new pair of shoes.
  */
@@ -124,6 +124,28 @@ const getSneakersById = function(id){
  .catch(err => console.log('error', err));
 }
 exports.getSneakersById = getSneakersById;
+
+
+
+/**
+ * List a specific sneaker
+ * @param {{id}} shoes
+ * @return {Promise<{}>} A promise to the new pair of shoes.
+ */
+
+const delSneakerById = function(id){
+  const querySQL = `DELETE FROM items WHERE id = $1`
+  return db.query(querySQL,[id])
+  .then(res => {
+    if(res.rows) {
+      return res;
+     } else {
+       return null
+     }
+   })
+ .catch(err => console.log('error', err));
+}
+exports.delSneakerById = delSneakerById;
 
 
 /// Favourites

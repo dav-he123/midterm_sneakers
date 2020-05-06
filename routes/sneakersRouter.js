@@ -57,7 +57,6 @@ router.post("/sneakers/new", (req, res) => {
 // List a specific pair of shoes
 router.get("/sneakers/:id", (req, res) => {
   const id = (req.params.id);
-
   database.getSneakersById(id)
   .then(data => {
     const shoes = data.rows;
@@ -81,11 +80,9 @@ router.put('/sneakers/:id', (req, res) => {
 
 // Delete a specific pair of shoes
 router.post("/sneakers/:id/delete", (req, res) => {
-
+  const id = (req.params.id);
+  database.delSneakerById(id)
+  res.redirect('/admin');
 });
 
-
-
 module.exports = router;
-
-
