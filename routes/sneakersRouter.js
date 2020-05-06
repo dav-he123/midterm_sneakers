@@ -56,7 +56,6 @@ router.post("/sneakers/new", (req, res) => {
 
 // List a specific pair of shoes
 router.get("/sneakers/:id", (req, res) => {
-  const id = 2;
   // const email = req.session.id;
   database.getSneakersById(id)
   .then(data => {
@@ -64,7 +63,7 @@ router.get("/sneakers/:id", (req, res) => {
     let templateVars = {
       sneakers: shoes
     }
-    res.render("sneaker_details", templateVars );
+    res.render("sneakers_details", templateVars );
   })
   .catch(err => {
     res
