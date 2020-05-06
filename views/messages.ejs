@@ -27,11 +27,17 @@
 
       <div class="message">
         <div class="message-header">
-          <p><b>From:</b> <%= message.name %></p>
+          <p><b>From:</b> <%= message.from_user_name %></p>
           <p><b>Product:</b> <%= message.title %></p>
         </div>
-      <p><%= message.message %></p>
+
+        <% for(let text of message.string_agg) { %>
+          <p><%= text %></p>
+        <% } %>
+
       </div>
+
+
 
       <% } %>
 
