@@ -17,9 +17,13 @@
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+<<<<<<< HEAD:views/login.ejs
     <link rel="stylesheet" href="/scripts/layout.css" type="text/css" />
     <link rel="stylesheet" href="./styles/header.css" type="text/css" />
 
+=======
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+>>>>>>> master:views/login.ejs
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
@@ -29,6 +33,7 @@
 
   </head>
 
+<<<<<<< HEAD:views/login.ejs
 
   <header id="displaylogin">
     <h1 class="text-lead">Let's Shop Sneakers</h1>
@@ -38,26 +43,46 @@
   </header>
 
 
-  <body>
-    <h3>Login</h3>
-    <div class="right-buttons">
-      <form id="login-form" action="/login" method="POST">
-        <input type="text" id="username" name="email" placeholder="email" />
-        <span>
-          <button type="submit" class="login-btn">Login</button>
-        </span>
-      </form>
-      <span id="logout-form"></span id="logout-form">
-        <button type="submit" class="logout-btn">Logout</button>
-      </span>
-    </div>
+=======
+  <header>
+    <%- include('partials/_header') %>
+  </header>
 
-    <h3>Favourites</h3>
+>>>>>>> master:views/login.ejs
+  <body>
+
+
+
+    <section class="wrap login-wrap">
+      <section class="body-section">
+
+      <h1>Login</h1>
+      <div class="right-buttons">
+        <form id="login-form" action="/login" method="POST">
+          <input type="text" id="username" name="email" placeholder="email" />
+          <span>
+            <button type="submit" class="login-btn">Login</button>
+          </span>
+        </form>
+        <span id="logout-form"></span id="logout-form">
+          <button type="submit" class="logout-btn">Logout</button>
+        </span>
+      </div>
+
+    <!-- <h3>Favourites</h3>
     <div class="right-buttons">
       <span>
         <button type="submit" class="favourites-btn">favourites</button>
       </span>
+<<<<<<< HEAD:views/login.ejs
     </div>
 
   </body>
+=======
+    </div> -->
+  </section>
+</section>
+
+
+>>>>>>> master:views/login.ejs
 </html>

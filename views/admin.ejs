@@ -23,6 +23,7 @@
     <%- include('partials/_header') %>
   </header>
   <body>
+<<<<<<< HEAD
     <!-- Add a new Product -->
     <section class="new-product">
       <h4>Create a new product</h4>
@@ -76,9 +77,59 @@
         </section>
       </form>
     </section>
+=======
+  <!-- Add a new Product -->
+  <section class="wrap card-body">
+      <section class="body-section">
+        <h1>Create a new product</h1>
+        <form class="create-product" action="/new" method="POST">
+
+          <div class="new-product-header">
+            <div class="brand-group">
+              <input type="text" class="form-control" id="brand" placeholder="Shoe's brand">
+            </div>
+            <div class="title-group">
+              <input type="text" class="form-control" id="title" placeholder="Title">
+            </div>
+          </div>
+
+          <div class="new-product-body">
+            <div class="size-group">
+              <label for="size">Size</label>
+              <select class="size-control" id="size">
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+              </select>
+            </div>
+            <div class="price-group">
+              <input type="text" class="form-control" id="price" placeholder="Price">
+            </div>
+          </div>
+
+          <div class="new-product-footer">
+            <div class="description-group">
+              <input type="text" class="form-control" id="description" placeholder="Description">
+            </div>
+          </div>
+
+          <section class="button-create">
+            <button type="submit" class="btn btn-primary">Create Product</button>
+          </section>
+
+        </form>
+
+>>>>>>> master
     <!-- Existing Products -->
     <main class="main">
+
+      <h1>Existing Products</h1>
       <section class="shoes-by-seller">
+<<<<<<< HEAD
         <h4>Existing Products</h4>
         <% for(let each of sneakers) { %>
         <div class="card" style="width: 18rem;">
@@ -88,10 +139,28 @@
             <p class="card-text"><%= each.price %></p>
             <a href="#" class="btn btn-success">Mark Sold</a>
             <a href="#" class="btn btn-danger">Delete</a>
+=======
+
+          <% for(let each of sneakers) { %>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= each.title %></h5>
+              <p class="card-text"><%= each.brand %></p>
+              <p class="card-text"><%= each.price %></p>
+            </div>
+            <div class="card-footer">
+              <a href="#" class="btn btn-success">Mark Sold</a>
+              <a href="#" class="btn btn-danger">Delete</a>
+            </div>
+
+>>>>>>> master
           </div>
         </div>
         <% } %>
       </section>
     </main>
+      </section>
+
+  </section>
   </body>
 </html>

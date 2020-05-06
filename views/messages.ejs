@@ -17,9 +17,21 @@
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
 
+  <header>
+    <%- include('partials/_header') %>
+  </header>
+
   <body>
+<<<<<<< HEAD
     <section class="messages-section">
       <h1>Messages</h1>
+=======
+
+    <section class="wrap">
+    <section class="body-section">
+    <h1>Messages</h1>
+
+>>>>>>> master
 
       <% for(let message of data) { %>
 
@@ -35,6 +47,7 @@
 
       <div class="right-buttons new-message">
         <form id="message-form" action="/messages" method="POST">
+<<<<<<< HEAD
           <input
             type="text"
             id="username"
@@ -42,11 +55,21 @@
             class="message-text"
             placeholder="message"
           />
+=======
+          <input type="text" id="message-input" name="new_message" class="message-text" placeholder="message" />
+>>>>>>> master
           <span>
-            <button type="submit" class="login-btn">Send message</button>
+            <button type="submit" class="btn btn-primary">Send message</button>
           </span>
         </form>
       </div>
     </section>
+<<<<<<< HEAD
+=======
+
+  </section>
+
+
+>>>>>>> master
   </body>
 </html>
