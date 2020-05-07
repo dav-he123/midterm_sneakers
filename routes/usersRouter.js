@@ -66,6 +66,7 @@ router.get("/favourites", (req, res) => {
     }
     database.getUsersFavouriteSneakers(userID).then((favouriteSneakers) => {
       res.render("favourites", { favouriteSneakers: favouriteSneakers });
+
       // return res.json(favouriteSneakers);
     });
   });
