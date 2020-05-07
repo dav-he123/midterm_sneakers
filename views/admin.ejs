@@ -72,7 +72,7 @@
       <section class="shoes-by-seller">
 
           <% for(let each of sneakers) { %>
-          <div class="card">
+          <div class="card" style="width: 18rem;">
             <img src="<%= each.cover_photo_url %>" class="card-img-top" alt="item_photo">
             <div class="card-body">
               <h5 class="card-title"><%= each.title %></h5>
@@ -81,14 +81,13 @@
             </div>
             <div class="card-footer">
               <form method="POST" action="/sneakers/<%= each.id %>">
-                <button type="button" class="btn btn-outline-success btn-lg"><i class="fa fa-handshake"></i></button>
+                <button class="btn btn-outline-dark btn-lg"><i class="fa fa-handshake-o"></i></button>
+
               </form>
               <form method="POST" action="/sneakers/<%= each.id %>/delete">
-                <button type="delete" class="btn btn-danger">Delete</button>
+                <button class="btn btn-outline-danger btn-lg"><i class="fa fa-trash"></i></button>
               </form>
             </div>
-
-
           </div>
           <% } %>
         </section>

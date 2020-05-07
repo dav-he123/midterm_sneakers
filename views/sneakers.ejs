@@ -23,26 +23,21 @@
 
       <h1>Existing Sneakers</h1>
 
-
       <section class="shoes-by-seller">
-
           <% for(let each of sneakers) { %>
-          <div class="card">
+          <div class="card" style="width: 18rem;">
             <img src="<%= each.cover_photo_url %>" class="card-img-top" alt="item_photo">
             <div class="card-body">
-              <h5 class="card-title"><%= each.title %></h5>
-              <p class="card-text"><%= each.brand %></p>
-              <p class="card-text"><%= each.price %></p>
+              <h5 class="card-title"><%= each.brand %></h5>
             </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><%= each.title %></li>
+              <li class="list-group-item">Price: $ <%= each.price %> CAD</li>
+              <li class="list-group-item">Size: <%= each.size %></li>
+            </ul>
             <div class="card-footer">
-              <button type="button" class="btn btn-outline-success">
-                <span class="fa fa-heart-o fa-lg" aria-hidden="true"></span>
-              </button>
+              <a href="#" class="btn btn-outline-success"><span class="fa fa-star" aria-hidden="true"></span></a>
             </div>
-
-
-
-
           </div>
           <% } %>
         </section>
