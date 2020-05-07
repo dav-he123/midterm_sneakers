@@ -21,12 +21,17 @@ router.get("/", (req, res) => {
 
   database.getAllSneakers()
   .then(data => {
-    const shoes = data.rows;
-    let templateVars = {
-      sneakers: shoes,
-      current_user_email: user_email
-    }
-    res.render("sneakers", templateVars );
+    database.getFeaturedSneakers().then(featureData => {
+      const featuredSneakers = featureData.rows;
+      const sneakers = data.rows;
+      let templateVars = {
+        sneakers: sneakers,
+        featuredSneakers: featuredSneakers,
+        current_user_email: user_email
+
+      }
+      res.render("sneakers", templateVars );
+    })
   })
   .catch(err => {
     res
@@ -63,11 +68,7 @@ router.get("/admin", (req, res) => {
 // Create a new pair of shoes
 router.post("/sneakers/new", (req, res) => {
   const sneaker = req.body;
-  console.log('sneaker text');
-  console.log(sneaker);
   sneaker.featured  = (sneaker.featured === 'on') ? true: false;
-  console.log('after');
-  console.log(sneaker);
   sneaker.admin_id = req.cookies.user_id;
   database.addSneaker(sneaker)
     .then((data) => {
@@ -130,26 +131,16 @@ router.post("/sneakers_messages/:id", (req, res) => {
   database
     .getSneakersById(req.params.id)
     .then((data) => {
-
       let adminId = data.rows[0].admin_id;
-      // console.log(adminId);
-
       database
         .postMessagesToSneaker(messageText, userId, adminId, toSneaker)
         .then(() => {
-
           res.redirect("/sneakers/"+toSneaker);
-
         })
         .catch((error) => {
           console.log(error);
         });
-
-
-
     })
-
-
 });
 
 router.post("/logout", (req, res) => {

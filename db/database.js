@@ -62,6 +62,23 @@ const getAllSneakers = function() {
 exports.getAllSneakers = getAllSneakers;
 
 /**
+ * Get a list of sneakers filter by featured
+ * @return {Promise<{}>} A promise with list of sneakers filter by featured.
+ */
+const getFeaturedSneakers = function() {
+  const querySQL = `SELECT * FROM items WHERE featured = true`
+  return db.query(querySQL)
+  .then(res => {
+    if(res.rows) {
+      return res;
+    } else {
+      return null
+    }
+  })
+  .catch(err => console.log('eror', err));
+}
+exports.getFeaturedSneakers = getFeaturedSneakers;
+/**
  * Get a list of sneakers for each owner
  * @param {String} use user_id of the owner.
  * @return {Promise<{}>} A promise with the list of sneakers.
