@@ -12,5 +12,6 @@ CREATE TABLE items (
   description VARCHAR(255),
   cover_photo_url VARCHAR(255) NOT NULL,
   gender VARCHAR(50) NOT NULL,
-  active BOOLEAN NOT NULL DEFAULT TRUE
+  active BOOLEAN NOT NULL DEFAULT TRUE,
+  featured BOOLEAN NOT NULL
 );

@@ -46,6 +46,11 @@ router.get("/admin", (req, res) => {
 // Create a new pair of shoes
 router.post("/sneakers/new", (req, res) => {
   const sneaker = req.body;
+  console.log('sneaker text');
+  console.log(sneaker);
+  sneaker.featured  = (sneaker.featured === 'on') ? true: false;
+  console.log('after');
+  console.log(sneaker);
   sneaker.admin_id = req.cookies.user_id;
   database.addSneaker(sneaker)
     .then((data) => {
