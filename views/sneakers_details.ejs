@@ -37,6 +37,17 @@
           <a href="#" class="btn btn-success btn-lg btn-block"><span class="fa fa-shopping-cart" aria-hidden="true"></span></a>
         </div>
       </div>
+
+      <div class="right-buttons new-message">
+        <form id="message-form" action="/sneakers_messages/<%= sneakers.id %>" method="POST">
+          <input type="text" id="message-input" name="new_message" class="message-text" placeholder="message" />
+          <span>
+            <button type="submit" class="btn btn-primary">Send message</button>
+          </span>
+        </form>
+      </div>
+
+
     </section>
   </body>
 </html>

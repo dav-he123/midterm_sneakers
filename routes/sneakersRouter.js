@@ -90,4 +90,37 @@ router.post("/sneakers/:id/delete", (req, res) => {
   res.redirect('/admin');
 });
 
+// Post a message to the owner of shoe
+router.post("/sneakers_messages/:id", (req, res) => {
+
+  let messageText = req.body.new_message;
+  let userId = req.cookies.user_id;
+  let toSneaker = req.params.id;
+
+  database
+    .getSneakersById(req.params.id)
+    .then((data) => {
+
+      let adminId = data.rows[0].admin_id;
+      // console.log(adminId);
+
+      database
+        .postMessagesToSneaker(messageText, userId, adminId, toSneaker)
+        .then(() => {
+
+          res.redirect("/sneakers/"+toSneaker);
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+
+
+    })
+
+
+});
+
+
 module.exports = router;
