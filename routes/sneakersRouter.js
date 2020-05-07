@@ -10,6 +10,15 @@ const database = require('../db/database');
 
 // List of sneakers
 router.get("/", (req, res) => {
+
+  const user_id = req.cookies.user_id;
+  if (!user_id) {
+    res.redirect("/login");
+  }
+
+  let user_email = req.cookies.email;
+
+
   database.getAllSneakers()
   .then(data => {
     database.getFeaturedSneakers().then(featureData => {
@@ -17,7 +26,8 @@ router.get("/", (req, res) => {
       const sneakers = data.rows;
       let templateVars = {
         sneakers: sneakers,
-        featuredSneakers: featuredSneakers
+        featuredSneakers: featuredSneakers,
+        current_user_email: user_email
 
       }
       res.render("sneakers", templateVars );
@@ -33,11 +43,18 @@ router.get("/", (req, res) => {
 // List of sneakers that belongs to an owner
 router.get("/admin", (req, res) => {
   const user_id = req.cookies.user_id;
+  if (!user_id) {
+    res.redirect("/login");
+  }
+  let user_email = req.cookies.email;
+
+
   database.getShoesBySeller(user_id)
   .then(data => {
     const shoes = data.rows;
     let templateVars = {
-      sneakers: shoes
+      sneakers: shoes,
+      current_user_email: user_email
     }
     res.render("admin", templateVars );
   })
@@ -65,12 +82,20 @@ router.post("/sneakers/new", (req, res) => {
 
 // List a specific pair of shoes
 router.get("/sneakers/:id", (req, res) => {
+  const user_id = req.cookies.user_id;
+  if (!user_id) {
+    res.redirect("/login");
+  }
+
+  let user_email = req.cookies.email;
+
   const id = (req.params.id);
   database.getSneakersById(id)
   .then(data => {
     const shoes = data.rows;
     let templateVars = {
-      sneakers: shoes[0]
+      sneakers: shoes[0],
+      current_user_email: user_email
     }
     res.render("sneakers_details", templateVars );
   })
@@ -116,6 +141,16 @@ router.post("/sneakers_messages/:id", (req, res) => {
           console.log(error);
         });
     })
+});
+
+router.post("/logout", (req, res) => {
+  // req.session.userId = null;
+  // res.send({});
+
+  res.clearCookie("user_id");
+  res.clearCookie("email");
+
+  res.redirect("/login");
 });
 
 

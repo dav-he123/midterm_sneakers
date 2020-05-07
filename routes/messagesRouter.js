@@ -15,8 +15,14 @@ const database = require("../db/database");
 router.get("/", (req, res) => {
 
   let userId = req.cookies.user_id;
-  // console.log(req.cookies.user_id);
+  let user_email = req.cookies.email;
+
+  console.log(user_email);
   // let messagesFromUsers = 1;
+
+  if (!userId) {
+    res.redirect("/login");
+  }
 
   database
     .getUserMessages(userId)
@@ -48,7 +54,7 @@ router.get("/", (req, res) => {
           row.string_agg = array;
         }
 
-        let templateVars = { data: data.rows , users: messagesFromOthersOnly};
+        let templateVars = { data: data.rows , users: messagesFromOthersOnly, current_user_email: user_email };
         res.render("messages", templateVars);
 
     });
@@ -102,9 +108,14 @@ router.post("/:id", (req, res) => {
 router.get("/:id", (req, res) => {
 
   let userId = req.cookies.user_id;
+  if (!userId) {
+    res.redirect("/login");
+  }
   // console.log(req.cookies.user_id);
   // let messagesFromUsers = 1;
   let fromUser = req.params.id;
+  let user_email = req.cookies.email;
+
 
   // console.log(fromUser);
 
@@ -136,7 +147,7 @@ router.get("/:id", (req, res) => {
 
 
 
-        let templateVars = { data: data.rows , users: messagesFromOthersOnly, fromUser: fromUser};
+        let templateVars = { data: data.rows , users: messagesFromOthersOnly, fromUser: fromUser, current_user_email: user_email};
         res.render("messages_by_users", templateVars);
 
     });
