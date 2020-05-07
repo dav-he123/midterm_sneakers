@@ -13,7 +13,10 @@ router.get("/", (req, res) => {
   database.getAllSneakers()
   .then(data => {
     const shoes = data.rows;
-    res.json({ shoes });
+    let templateVars = {
+      sneakers: shoes
+    }
+    res.render("sneakers", templateVars );
   })
   .catch(err => {
     res

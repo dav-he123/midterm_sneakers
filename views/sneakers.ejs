@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta Information -->
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+    <title>Sneakers - Admin Page</title>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- App CSS -->
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css"/>
+  </head>
+  <header>
+    <%- include('partials/_header') %>
+  </header>
+  <body>
+  <section class="wrap card-body">
+    <section class="body-section">
+    <!-- List of Products for everybody-->
+    <main class="main">
+
+      <h1>Existing Sneakers</h1>
+
+
+      <section class="shoes-by-seller">
+
+          <% for(let each of sneakers) { %>
+          <div class="card">
+            <img src="<%= each.cover_photo_url %>" class="card-img-top" alt="item_photo">
+            <div class="card-body">
+              <h5 class="card-title"><%= each.title %></h5>
+              <p class="card-text"><%= each.brand %></p>
+              <p class="card-text"><%= each.price %></p>
+            </div>
+            <div class="card-footer">
+              <button type="button" class="btn btn-outline-success">
+                <span class="fa fa-heart-o fa-lg" aria-hidden="true"></span>
+              </button>
+            </div>
+
+
+
+
+          </div>
+          <% } %>
+        </section>
+    </main>
+
+    </section>
+  </section>
+  </body>
+</html>
+
+
+
+

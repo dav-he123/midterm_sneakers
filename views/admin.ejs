@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <!-- App CSS -->
     <link rel="stylesheet" href="/styles/layout.css" type="text/css"/>
   </head>
@@ -71,19 +73,21 @@
 
           <% for(let each of sneakers) { %>
           <div class="card">
+            <img src="<%= each.cover_photo_url %>" class="card-img-top" alt="item_photo">
             <div class="card-body">
               <h5 class="card-title"><%= each.title %></h5>
-              <p class="card-text"><%= each.brand %></p>
-              <p class="card-text"><%= each.price %></p>
+              <h6 class="card-subtitle mb-2 text-muted"><%= each.brand %></h6>
+              <p class="card-text">$<%= each.price %> CAD</p>
             </div>
             <div class="card-footer">
               <form method="POST" action="/sneakers/<%= each.id %>">
-                <button type="put" class="btn btn-success">Mark Sold</button>
+                <button type="button" class="btn btn-outline-success btn-lg"><i class="fa fa-handshake"></i></button>
               </form>
               <form method="POST" action="/sneakers/<%= each.id %>/delete">
                 <button type="delete" class="btn btn-danger">Delete</button>
               </form>
             </div>
+
 
           </div>
           <% } %>
