@@ -57,7 +57,7 @@
 
           <input type="hidden" class="form-control" id="colour" name="colour" value="red">
           <input type="hidden" class="form-control" id="gender" name="gender" value="male">
-          <input type="hidden" class="form-control" id="cover_photo_url" name="cover_photo_url" value="http">
+          <input type="hidden" class="form-control" id="cover_photo_url" name="cover_photo_url" value="https://stockx.imgix.net/New-Balance-710-Samurai-Magazine-x-mita-Multi.png?fit=fill&bg=FFFFFF&w=140&h=100&auto=format,compress&trim=color&q=90&dpr=2&updated_at=1538080256">
 
           <section class="button-create">
             <button type="submit" class="btn btn-primary">Create Product</button>
@@ -75,9 +75,12 @@
           <div class="card" style="width: 18rem;">
             <img src="<%= each.cover_photo_url %>" class="card-img-top" alt="item_photo">
             <div class="card-body">
-              <h5 class="card-title"><%= each.title %></h5>
-              <h6 class="card-subtitle mb-2 text-muted"><%= each.brand %></h6>
-              <p class="card-text">$<%= each.price %> CAD</p>
+              <h5 class="card-title"><%= each.brand %></h5>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"><%= each.title %></li>
+                <li class="list-group-item">Price: $ <%= each.price %> CAD</li>
+                <li class="list-group-item">Size: <%= each.size %></li>
+              </ul>
             </div>
             <div class="card-footer">
               <form method="POST" action="/sneakers/<%= each.id %>">

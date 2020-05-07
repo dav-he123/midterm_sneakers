@@ -67,7 +67,7 @@ exports.getAllSneakers = getAllSneakers;
  * @return {Promise<{}>} A promise with the list of sneakers.
  */
 const getShoesBySeller = function(user_id) {
-  const querySQL = `SELECT items.id, items.brand, items.title, items.price, items.description, items.cover_photo_url
+  const querySQL = `SELECT items.id, items.brand, items.size, items.title, items.price, items.description, items.cover_photo_url
   FROM items
   JOIN users ON users.id = admin_id
   WHERE users.id=$1`
