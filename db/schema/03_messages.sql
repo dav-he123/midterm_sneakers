@@ -6,5 +6,6 @@ CREATE TABLE messages (
   from_user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   to_user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   item_id INTEGER REFERENCES items(id) ON DELETE CASCADE,
-  message VARCHAR(255) NOT NULL
+  message VARCHAR(255) NOT NULL,
+  timestamp timestamp default current_timestamp
 );

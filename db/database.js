@@ -192,14 +192,80 @@ exports.getFavouriteSneakers = getFavouriteSneakers;
     JOIN users AS to_users ON to_user_id = to_users.id
     JOIN users AS from_users ON from_user_id = from_users.id
     JOIN items ON item_id = items.id
-    WHERE to_users.id = $1
+    WHERE to_users.id = $1 OR from_users.id = $1
     GROUP BY from_users.id, from_users.name, to_users.name, items.brand, items.title;`
 
     return db.query(querySQL, [userId])
-      .then((res) => res);
+      .then((res) => {
+        // console.log("database result", res);
+        return res
+      });
   };
 
   exports.getMessages = getMessages;
+
+
+  /// Users that have messaged
+
+  const getUserMessages = function(userId) {
+    const querySQL = `SELECT DISTINCT from_users.id AS from_user_id, from_users.name
+    FROM messages
+    JOIN users AS to_users ON to_user_id = to_users.id
+    JOIN users AS from_users ON from_user_id = from_users.id
+    JOIN items ON item_id = items.id
+    WHERE to_users.id = $1 OR from_users.id = $1;`
+
+    return db.query(querySQL, [userId])
+      .then((res) => {
+        // console.log("database result", res);
+        return res
+      });
+  };
+
+  exports.getUserMessages = getUserMessages;
+
+//// Get messages from specific user
+
+const getMessagesFromUser = function(userId, fromUser) {
+  const querySQL = `SELECT *
+  FROM messages
+  JOIN users AS to_users ON to_user_id = to_users.id
+  JOIN users AS from_users ON from_user_id = from_users.id
+  JOIN items ON item_id = items.id
+  WHERE from_users.id = $2 AND to_users.id = $1 OR from_users.id = $1 AND to_users.id = $2
+  ORDER BY messages.id;`
+
+  return db.query(querySQL, [userId, fromUser])
+    .then((res) => {
+      //  console.log("database result", res);
+      return res
+    });
+};
+
+exports.getMessagesFromUser = getMessagesFromUser;
+
+//// Post message to specific user
+
+const postMessagesToUser = function(messageText, fromUser, toUser) {
+
+  console.log(messageText);
+  const sql = "INSERT INTO messages (from_user_id, to_user_id, item_id, message) VALUES ($2, $3, 5, $1);"
+
+  return db.query(sql, [messageText, fromUser, toUser])
+  .then(res => {
+    if(res.rows) {
+      return res;
+    } else {
+      return null
+    }
+  })
+  .catch(err => console.log('error', err));
+};
+
+exports.postMessagesToUser = postMessagesToUser;
+
+
+///// General post message
 
 const postMessages = function(messageText) {
 

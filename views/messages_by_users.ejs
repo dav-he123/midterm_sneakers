@@ -20,7 +20,7 @@
 
     <section class="wrap">
     <section class="body-section">
-    <h1>Messages</h1>
+    <h1>Messages By Users</h1>
 
     <div class="btn-group">
       <% for(let user of users) { %>
@@ -31,28 +31,30 @@
 
     </div>
 
-
-      <% for(let message of data) { %>
+    <% for(let message of data) { %>
 
       <div class="message">
         <div class="message-header">
-          <p><b>From:</b> <%= message.from_user_name %></p>
+          <p><b>From:</b> <%= message.from_user_id %></p>
+          <p><b>To:</b> <%= message.to_user_id %></p>
           <p><b>Product:</b> <%= message.title %></p>
+
         </div>
 
-        <% for(let text of message.string_agg) { %>
-          <p><%= text %></p>
-        <% } %>
+        <p><b>Message:</b> <%= message.message %></p>
 
       </div>
-
-
 
       <% } %>
 
 
+
+
+
+
+
       <div class="right-buttons new-message">
-        <form id="message-form" action="/messages" method="POST">
+        <form id="message-form" action="/messages/<%= fromUser %>" method="POST">
           <input type="text" id="message-input" name="new_message" class="message-text" placeholder="message" />
           <span>
             <button type="submit" class="btn btn-primary">Send message</button>
