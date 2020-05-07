@@ -10,6 +10,13 @@ const router = express.Router();
 const database = require('../db/database');
 
 router.get("/", (req, res) => {
+
+  const user_id = req.cookies.user_id;
+  if (!user_id) {
+    res.redirect("/login");
+  }
+
+
   database.getAllUsers()
   .then(data => {
     const users = data.rows;
@@ -23,8 +30,11 @@ router.get("/", (req, res) => {
   });
 
   router.post("/logout", (req, res) => {
-    req.session.userId = null;
-    res.send({});
+    // req.session.userId = null;
+    // res.send({});
+
+    res.clearCookie("user_id");
+    res.clearCookie("email");
   });
 
   router.get("/userid", (req, res) => {

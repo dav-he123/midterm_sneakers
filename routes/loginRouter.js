@@ -29,7 +29,10 @@ router.post("/", (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  res.render("login");
+  let user_email = req.cookies.email;
+  let templateVars = { current_user_email: user_email};
+
+  res.render("login", templateVars);
 });
 
 module.exports = router;
