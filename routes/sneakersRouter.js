@@ -14,10 +14,10 @@ router.get("/", (req, res) => {
   .then(data => {
     database.getFeaturedSneakers().then(featureData => {
       const featuredSneakers = featureData.rows;
-      const shoes = data.rows;
+      const sneakers = data.rows;
       let templateVars = {
-        sneakers: shoes,
-        featureds: featuredSneakers
+        sneakers: sneakers,
+        featuredSneakers: featuredSneakers
 
       }
       res.render("sneakers", templateVars );

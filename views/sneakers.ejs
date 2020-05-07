@@ -22,12 +22,12 @@
       <h1>Featured Sneakers</h1>
       <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
-          <% for(let featured of featureds) { %>
+          <% for(let fs of featuredSneakers) { %>
             <div class="carousel-item active">
-              <img src="<%= featured.cover_photo_url %>" class="d-block w-75" alt="sneakers">
+              <img src="<%= fs.cover_photo_url %>" class="d-block w-100" alt="sneakers">
               <div class="carousel-caption d-none d-md-block">
-                <h5><%= featured.title %></h5>
-                <p>$ <%= featured.price %> CAD</p>
+                <h5><%= fs.title %></h5>
+                <p>$ <%= fs.price %> CAD</p>
               </div>
             </div>
           <% } %>
@@ -46,6 +46,10 @@
     <main class="main">
 
       <h1>Existing Sneakers</h1>
+      <label for="filterPrice">Filter By Price</label>
+      <form class="range-field my-4 w-25">
+        <input type="range" class="custom-range" min="20" max="300" />
+      </form>
 
       <section class="shoes-by-seller">
           <% for(let each of sneakers) { %>
