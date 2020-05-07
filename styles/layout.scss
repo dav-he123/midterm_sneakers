@@ -121,6 +121,9 @@ body {
     height: 300px;
 
     .card-footer{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
       text-align: right;
 
       .btn{

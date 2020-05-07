@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- App CSS -->
     <link rel="stylesheet" href="/styles/layout.css" type="text/css"/>
   </head>
@@ -16,16 +18,25 @@
   </header>
   <body>
     <!-- Details of a Product -->
-    <section class="wrap card-body">
-      <section class="body-section">
-        <h1><%=sneakers.title %></h1>
-        <img src="<%= sneakers.cover_photo_url  %>" alt="Sneaker_details" height=100% width=300%>
-        <section>
-          <p>Brand:<%= sneakers.brand %></p>
-          <p>$<%= sneakers.price %></p>
-          <p>Description: <%= sneakers.description %></p>
-        </section>
-      </section>
+
+    <section class="shoes-by-seller">
+
+
+      <div class="card w-50" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title"><%=sneakers.title %></h5>
+        </div>
+        <img src="<%= sneakers.cover_photo_url %>" class="card-img-top" alt="item_photo">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Brand: <%= sneakers.brand %></li>
+          <li class="list-group-item">Price: $ <%= sneakers.price %> CAD</li>
+          <li class="list-group-item">Description: <%= sneakers.size %></li>
+          <li class="list-group-item">Description: <%= sneakers.description %></li>
+        </ul>
+        <div class="card-footer">
+          <a href="#" class="btn btn-success btn-lg btn-block"><span class="fa fa-shopping-cart" aria-hidden="true"></span></a>
+        </div>
+      </div>
     </section>
   </body>
 </html>
