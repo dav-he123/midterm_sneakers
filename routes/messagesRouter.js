@@ -14,31 +14,29 @@ const database = require("../db/database");
 
 router.get("/", (req, res) => {
 
-
   let userId = req.cookies.user_id;
   // console.log(req.cookies.user_id);
+  let messagesFromUsers = 1;
 
   database
-    .getMessages(userId)
+    .getUserMessages(userId)
     .then((data) => {
+      messagesFromUsers = data.rows;
+      // console.log(messagesFromUsers);
 
-      // console.log(data.rows);
+    database
+      .getMessages(userId)
+      .then((data) => {
 
-      /// Create array of unique incoming message users
+        for (let row of data.rows) {
+          let array = row.string_agg.split("|");
+          row.string_agg = array;
+        }
 
+        let templateVars = { data: data.rows , users: messagesFromUsers};
+        res.render("messages", templateVars);
 
-      for (let row of data.rows) {
-        let array = row.string_agg.split("|");
-        row.string_agg = array;
-      }
-
-      // console.log(data.rows);
-
-
-      let templateVars = { data: data.rows };
-
-      res.render("messages", templateVars);
-
+    });
     });
 });
 
@@ -56,6 +54,66 @@ router.post("/", (req, res) => {
       console.log(error);
     });
 });
+
+//////// POST TO SPECIFIC USER
+
+
+router.post("/:id", (req, res) => {
+
+  let messageText = req.body.new_message;
+  let userId = req.cookies.user_id;
+  let toUser = req.params.id;
+
+  database
+
+    .postMessagesToUser(messageText, userId, toUser)
+
+    .then(() => {
+
+      res.redirect("/messages/"+toUser);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+
+
+//////// GET MESSAGES FOR SPECIFIC USER
+
+router.get("/:id", (req, res) => {
+
+  let userId = req.cookies.user_id;
+  // console.log(req.cookies.user_id);
+  // let messagesFromUsers = 1;
+  let fromUser = req.params.id;
+
+  console.log(fromUser);
+
+  database
+    .getUserMessages(userId)
+    .then((data) => {
+      messagesFromUsers = data.rows;
+      // console.log(messagesFromUsers);
+
+    database
+      .getMessagesFromUser(userId,fromUser)
+      .then((data) => {
+
+        // console.log(data.rows)
+
+        for (let row of data.rows) {
+          // console.log(row.from_user_id);
+        }
+
+        let templateVars = { data: data.rows , users: messagesFromUsers, fromUser: fromUser};
+        res.render("messages_by_users", templateVars);
+
+    });
+    });
+});
+
+
 
 module.exports = router;
 
