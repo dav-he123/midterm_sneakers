@@ -24,17 +24,17 @@
         <form class="create-product" action="/sneakers/new" method="POST">
           <div class="new-product-header">
             <div class="brand-group">
-              <input type="text" class="form-control" id="brand" name="brand" placeholder="Shoe's brand">
+              <input type="text" class="form-control" id="brand" name="brand" placeholder="Shoe's brand" required>
             </div>
             <div class="title-group">
-              <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+              <input type="text" class="form-control" id="title" name="title" placeholder="Title" required>
             </div>
           </div>
 
           <div class="new-product-body">
             <div class="size-group">
               <label for="size">Size</label>
-              <select class="size-control" id="size" name="size">
+              <select class="size-control" id="size" name="size" required>
                 <option>6</option>
                 <option>7</option>
                 <option>8</option>
@@ -45,13 +45,13 @@
               </select>
             </div>
             <div class="price-group">
-              <input type="text" class="form-control" id="price" name="price" placeholder="Price">
+              <input type="number" class="form-control" id="price" name="price" placeholder="Price" required>
             </div>
           </div>
 
           <div class="new-product-footer">
             <div class="description-group">
-              <input type="text" class="form-control" id="description"  name="description" placeholder="Description">
+              <input type="text" class="form-control" id="description"  name="description" placeholder="Description" required>
             </div>
           </div>
 
@@ -73,24 +73,24 @@
 
           <% for(let each of sneakers) { %>
           <div class="card" style="width: 18rem;">
+            <h5 class="card-title"><%= each.brand %></h5>
             <img src="<%= each.cover_photo_url %>" class="card-img-top" alt="item_photo">
             <div class="card-body">
-              <h5 class="card-title"><%= each.brand %></h5>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item"><%= each.title %></li>
                 <li class="list-group-item">Price: $ <%= each.price %> CAD</li>
                 <li class="list-group-item">Size: <%= each.size %></li>
               </ul>
+              <div class="card-footer">
+                <form method="POST" action="/sneakers/<%= each.id %>">
+                  <button class="btn btn-primary btn-lg"><i class="fa fa-truck"></i></button>
+                </form>
+                <form method="POST" action="/sneakers/<%= each.id %>/delete">
+                  <button class="btn btn-danger btn-lg"><i class="fa fa-trash"></i></button>
+                </form>
+              </div>
             </div>
-            <div class="card-footer">
-              <form method="POST" action="/sneakers/<%= each.id %>">
-                <button class="btn btn-outline-dark btn-lg"><i class="fa fa-handshake-o"></i></button>
 
-              </form>
-              <form method="POST" action="/sneakers/<%= each.id %>/delete">
-                <button class="btn btn-outline-danger btn-lg"><i class="fa fa-trash"></i></button>
-              </form>
-            </div>
           </div>
           <% } %>
         </section>
