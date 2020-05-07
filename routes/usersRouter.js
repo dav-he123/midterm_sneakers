@@ -81,12 +81,10 @@ router.post("/addfavourite", (req, res) => {
   database.getAllUsers().then((users) => {
     // console.log("users", users);
     for (key of users) {
-      console.log(key, email, email === key.email);
-      // console.log("email", email);
-
       if (email === key.email) {
         console.log("emailto", email);
         userID = key.id;
+        console.log("USERID", userID);
         database.addFavouriteSneakers(userID, itemID).then(() => {
           res.end();
         });

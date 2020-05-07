@@ -23,8 +23,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <!--Event Handlers-->
-    <script src="scripts/favourites.js"></script>
-    <script src="scripts/event-handlers/load_event_handler.js"></script>
+    <script src="/scripts/favourites.js"></script>
+    <script src="/scripts/load_event_handler.js"></script>
 
     <header>
       <%- include('partials/_header') %>
@@ -34,12 +34,13 @@
   <body>
     <main class="main">
       <section class="shoes-by-seller">
-        <h4>Existing Products</h4>
+        <h4>Home Page</h4>
         <% for(let sneaker of sneakers) { %>
         <div class="card" style="width: 18rem;">
           <div class="card-body" data-item="<%= sneaker.id %>">
             <h5 class="card-title favouriteData"><%= sneaker.title %></h5>
             <p class="card-text favouriteData"><%= sneaker.brand %></p>
+            <p class="card-text favouriteData"><%= sneaker.price %></p>
             <p class="card-text favouriteData"><%= sneaker.price %></p>
             <p class="card-text favouriteData">
               <img src="<%=sneaker.cover_photo_url %>" />
@@ -56,6 +57,9 @@
         </div>
         <% } %>
       </section>
+    </main>
+    <main id="showSneakers" class="container-in-center">
+      <button class="sms-sendbtn">Send SMS</button>
     </main>
   </body>
 </html>

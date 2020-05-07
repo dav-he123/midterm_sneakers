@@ -17,6 +17,7 @@ const sneakersRouter = require("./routes/sneakersRouter");
 const usersRouter = require("./routes/usersRouter");
 const loginRouter = require("./routes/loginRouter");
 const messagesRouter = require("./routes/messagesRouter");
+const routesSMS = require("./routes/smsMessages");
 
 // const db = require("./db/database");
 
@@ -45,8 +46,7 @@ app.use("/", sneakersRouter);
 app.use("/users", usersRouter);
 app.use("/login", loginRouter);
 app.use("/messages", messagesRouter);
-
-
+app.use("/sms", routesSMS);
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT} 😎`);

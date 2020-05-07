@@ -23,8 +23,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <!--Event Handlers-->
-    <script src="scripts/favourites.js"></script>
-    <script src="scripts/event-handlers/load_event_handler.js"></script>
+    <script src="/scripts/favourites.js"></script>
+    <script src="/scripts/load_event_handler.js"></script>
 
     <!-- <header>
       <%- include('partials/_header') %>
@@ -34,7 +34,7 @@
   <body>
     <main class="main">
       <section class="shoes-by-seller">
-        <h4>Existing Products</h4>
+        <h4>Favourites</h4>
         <% for(let sneaker of favouriteSneakers) { %>
         <div class="card" style="width: 18rem;">
           <div class="card-body" data-item="<%= sneaker.id %>">

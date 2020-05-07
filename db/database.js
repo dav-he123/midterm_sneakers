@@ -132,6 +132,7 @@ const getFavouriteSneakers = function (user) {
 exports.getFavouriteSneakers = getFavouriteSneakers;
 
 const addFavouriteSneakers = function (userID, itemID) {
+  console.log("ITEMID", itemID);
   return db
     .query(
       `INSERT INTO favourites (user_id, item_id) 
