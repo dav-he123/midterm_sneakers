@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <!-- App CSS -->
     <link rel="stylesheet" href="/styles/layout.css" type="text/css"/>
   </head>
@@ -74,6 +73,12 @@
           <% for(let each of sneakers) { %>
           <div class="card" style="width: 18rem;">
             <h5 class="card-title"><%= each.brand %></h5>
+            <% if (each.active === 'false') { %>
+                <div class="alert alert-warning">
+                  SOLD!
+                </div>
+            <% } %>
+            <%= each.active %>
             <img src="<%= each.cover_photo_url %>" class="card-img-top" alt="item_photo">
             <div class="card-body">
               <ul class="list-group list-group-flush">
@@ -81,16 +86,16 @@
                 <li class="list-group-item">Price: $ <%= each.price %> CAD</li>
                 <li class="list-group-item">Size: <%= each.size %></li>
               </ul>
+
               <div class="card-footer">
                 <form method="POST" action="/sneakers/<%= each.id %>">
                   <button class="btn btn-primary btn-lg"><i class="fa fa-truck"></i></button>
                 </form>
                 <form method="POST" action="/sneakers/<%= each.id %>/delete">
-                  <button class="btn btn-danger btn-lg"><i class="fa fa-trash"></i></button>
+                  <button class="btn btn-danger btn-lg" data-toggle="tooltip"><i class="fa fa-trash"></i></button>
                 </form>
               </div>
             </div>
-
           </div>
           <% } %>
         </section>
@@ -99,7 +104,4 @@
   </section>
   </body>
 </html>
-
-
-
 
