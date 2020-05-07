@@ -112,7 +112,7 @@ exports.getShoesBySeller = getShoesBySeller;
  */
 
 const getSneakersById = function(id){
-  const querySQL = `SELECT id, brand, title, price, size, description, cover_photo_url, active FROM items WHERE id = $1`
+  const querySQL = `SELECT id, brand, admin_id, title, price, size, description, cover_photo_url, active FROM items WHERE id = $1`
   return db.query(querySQL,[id])
   .then(res => {
     if(res.rows) {
@@ -227,7 +227,7 @@ exports.getFavouriteSneakers = getFavouriteSneakers;
 //// Get messages from specific user
 
 const getMessagesFromUser = function(userId, fromUser) {
-  const querySQL = `SELECT *
+  const querySQL = `SELECT messages.id, messages.from_user_id, from_users.name AS from_user_name, messages.to_user_id, to_users.name AS to_user_name, items.brand, items.title, messages.message, items.id AS item_id
   FROM messages
   JOIN users AS to_users ON to_user_id = to_users.id
   JOIN users AS from_users ON from_user_id = from_users.id
@@ -246,12 +246,12 @@ exports.getMessagesFromUser = getMessagesFromUser;
 
 //// Post message to specific user
 
-const postMessagesToUser = function(messageText, fromUser, toUser) {
+const postMessagesToUser = function(messageText, fromUser, toUser, sneakerId) {
 
   console.log(messageText);
-  const sql = "INSERT INTO messages (from_user_id, to_user_id, item_id, message) VALUES ($2, $3, 5, $1);"
+  const sql = "INSERT INTO messages (from_user_id, to_user_id, item_id, message) VALUES ($2, $3, $4, $1);"
 
-  return db.query(sql, [messageText, fromUser, toUser])
+  return db.query(sql, [messageText, fromUser, toUser, sneakerId])
   .then(res => {
     if(res.rows) {
       return res;
@@ -284,3 +284,25 @@ const postMessages = function(messageText) {
 };
 
 exports.postMessages = postMessages;
+
+/// Post messages to specific sneaker owner
+
+/// .postMessagesToSneaker(messageText, userId, adminId)
+
+const postMessagesToSneaker = function(messageText, fromUser, adminId, productId) {
+
+  console.log(messageText);
+  const sql = "INSERT INTO messages (from_user_id, to_user_id, item_id, message) VALUES ($2, $3, $4, $1);"
+
+  return db.query(sql, [messageText, fromUser, adminId, productId])
+  .then(res => {
+    if(res.rows) {
+      return res;
+    } else {
+      return null
+    }
+  })
+  .catch(err => console.log('error', err));
+};
+
+exports.postMessagesToSneaker = postMessagesToSneaker;
