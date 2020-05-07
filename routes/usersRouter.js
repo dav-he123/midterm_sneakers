@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
   database
     .getAllUsers()
     .then((data) => {
-      const users = data.rows;
+      const users = data;
       res.json({ users });
     })
     .catch((err) => {
@@ -45,8 +45,6 @@ router.get("/userid", (req, res) => {
     .catch((e) => res.send(e));
 });
 
-module.exports = router;
-
 // router.post("/login", (req, res) => {
 //   res.cookie("email", req.body.email);
 //   res.sendStatus(200);
@@ -55,60 +53,49 @@ module.exports = router;
 router.get("/favourites", (req, res) => {
   // console.log(res);
   // let user_Email = decodeURIComponent(req.headers.cookie.slice(9));
+  let email = req.cookies.email;
 
   database.getAllUsers().then((users) => {
     // console.log("users", users);
     let userID;
     for (let key of users) {
-      // if (user_Email === key.email) {
-      // console.log("key.id", key.id);
-      userID = key.id;
-      // }
-    }
-    // console.log(userID);
-    database.getFavouriteSneakers(userID).then((favouriteSneakers) => {
-      let arrFav = [];
-      for (let key of favouriteSneakers) {
-        arrFav.push(key.item_id);
+      if (email === key.email) {
+        // console.log("key.id", key.id);
+        userID = key.id;
       }
-      database.getAllSneakers().then((items) => {
-        // console.log(items);
-        const favItems = items.filter((item) => arrFav.includes(item.id));
-        res.json({ favItems });
-      });
+    }
+    database.getUsersFavouriteSneakers(userID).then((favouriteSneakers) => {
+      res.render("favourites", { favouriteSneakers: favouriteSneakers });
+      // return res.json(favouriteSneakers);
     });
   });
 });
 
-router.post("/favouritesAdd", (req, res) => {
-  res.redirect("/favourties");
-});
+router.post("/addfavourite", (req, res) => {
+  let email = req.cookies.email;
+  let itemID = req.body.item_id;
+  let userID;
 
-app.post("/register", (req, res) => {
-  const { email, password } = req.body;
+  console.log(req.body);
+  database.getAllUsers().then((users) => {
+    // console.log("users", users);
+    for (key of users) {
+      console.log(key, email, email === key.email);
+      // console.log("email", email);
 
-  if (email === "" || password === "") {
-    res.statusCode = 400;
-    res.end("The email or password is empty. Status code: 400"); //This error message shows up if the user does not register email or password in the browser.
-  } else if (emailCheck(users, req.body.email)) {
-    res.statusCode = 400;
-    res.end("The email is already being used. Status code: 400"); //This error message shows up when user registers the same username and password that has already been registered
-  }
-
-  let randomID = generateRandomString();
-
-  users[randomID] = {
-    id: randomID,
-    email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 10),
-  };
-  console.log("users:", users);
-
-  req.session.user_id = randomID;
-
-  getUserByEmail(req.body.email, users);
-
-  res.redirect("/urls");
+      if (email === key.email) {
+        console.log("emailto", email);
+        userID = key.id;
+        database.addFavouriteSneakers(userID, itemID).then(() => {
+          res.end();
+        });
+      }
+    }
+    if (!userID) {
+      res.send(400);
+    }
+    console.log(userID);
+  });
 });
 
 // router.get("/test", (req, res) => {
@@ -121,3 +108,4 @@ app.post("/register", (req, res) => {
 //       res.status(500).json({ error: err.message });
 //     });
 // });
+module.exports = router;

@@ -131,6 +131,37 @@ const getFavouriteSneakers = function (user) {
 };
 exports.getFavouriteSneakers = getFavouriteSneakers;
 
+const addFavouriteSneakers = function (userID, itemID) {
+  return db
+    .query(
+      `INSERT INTO favourites (user_id, item_id) 
+    VALUES ($1, $2)
+    RETURNING *;`,
+      [userID, itemID]
+    )
+    .then((res) => res.rows[0]);
+};
+
+exports.addFavouriteSneakers = addFavouriteSneakers;
+
+//------------------
+
+const getUsersFavouriteSneakers = function (id) {
+  const querySQL =
+    "SELECT * FROM favourites JOIN items on item_id = items.id WHERE user_id = $1";
+
+  return db.query(querySQL, [id]).then((res) => res.rows);
+};
+
+exports.getUsersFavouriteSneakers = getUsersFavouriteSneakers;
+
+const getUsersEmail = function (email) {
+  const querySQL = `SELECT * FROM users WHERE email = $1;`;
+  return db.query(querySQL, [email]).then((res) => res.rows);
+};
+
+exports.getUsersEmail = getUsersEmail;
+
 const getUserWithId = function (id) {
   const querySQL = `SELECT * FROM users WHERE id = $1;`;
   return db.query(querySQL, [id]).then((res) => res.rows[0]);

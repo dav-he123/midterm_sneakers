@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
     />
-    <title>Sneakers - Home Page</title>
+    <title>Favourite Sneakers</title>
 
     <!-- External CSS -->
     <link
@@ -26,16 +26,16 @@
     <script src="scripts/favourites.js"></script>
     <script src="scripts/event-handlers/load_event_handler.js"></script>
 
-    <header>
+    <!-- <header>
       <%- include('partials/_header') %>
-    </header>
+    </header> -->
   </head>
 
   <body>
     <main class="main">
       <section class="shoes-by-seller">
         <h4>Existing Products</h4>
-        <% for(let sneaker of sneakers) { %>
+        <% for(let sneaker of favouriteSneakers) { %>
         <div class="card" style="width: 18rem;">
           <div class="card-body" data-item="<%= sneaker.id %>">
             <h5 class="card-title favouriteData"><%= sneaker.title %></h5>
@@ -44,14 +44,6 @@
             <p class="card-text favouriteData">
               <img src="<%=sneaker.cover_photo_url %>" />
             </p>
-
-            <a
-              href="/users/favourites"
-              class="fav-add-btn"
-              item_id="<%= sneaker.id %>"
-              >Favourties</a
-            >
-            <a href="#" class="btn btn-danger">Send Message</a>
           </div>
         </div>
         <% } %>
