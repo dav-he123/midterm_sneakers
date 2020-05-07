@@ -16,8 +16,32 @@
     <%- include('partials/_header') %>
   </header>
   <body>
+   <!-- Featured Sneakers-->
   <section class="wrap card-body">
     <section class="body-section">
+      <h1>Featured Sneakers</h1>
+      <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <% for(let featured of featureds) { %>
+            <div class="carousel-item active">
+              <img src="<%= featured.cover_photo_url %>" class="d-block w-75" alt="sneakers">
+              <div class="carousel-caption d-none d-md-block">
+                <h5><%= featured.title %></h5>
+                <p>$ <%= featured.price %> CAD</p>
+              </div>
+            </div>
+          <% } %>
+
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
     <!-- List of Products for everybody-->
     <main class="main">
 

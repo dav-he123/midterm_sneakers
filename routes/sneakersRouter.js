@@ -12,11 +12,16 @@ const database = require('../db/database');
 router.get("/", (req, res) => {
   database.getAllSneakers()
   .then(data => {
-    const shoes = data.rows;
-    let templateVars = {
-      sneakers: shoes
-    }
-    res.render("sneakers", templateVars );
+    database.getFeaturedSneakers().then(featureData => {
+      const featuredSneakers = featureData.rows;
+      const shoes = data.rows;
+      let templateVars = {
+        sneakers: shoes,
+        featureds: featuredSneakers
+
+      }
+      res.render("sneakers", templateVars );
+    })
   })
   .catch(err => {
     res
