@@ -126,7 +126,7 @@ body {
     // width: 40%;
     // flex-grow: 1;
     margin: 20px;
-    height: 460px;
+    height: 470px;
     // width: 350px;
     padding: 10px;
 
@@ -284,6 +284,42 @@ body {
     justify-content: space-between;
   }
 
+
+  .sneaker-page-card {
+    height: 900px;
+
+
+    .card-title {
+      font-size: x-large;
+      align-self: center;
+    }
+  }
+
+  .sneakers-message-wrap {
+    height: 180px;
+    width: 350px;
+
+    .message-form {
+      display: flex;
+      justify-content: center;
+    }
+
+    #message-input {
+      width: 90%;
+    }
+
+    span {
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 15px;
+    }
+
+  }
+
+  #product-wrap {
+    display: flex;
+    justify-content: center;
+  }
 
 }
 
