@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Amaranth:wght@700&family=Titillium+Web:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
     <!-- App CSS -->
     <link rel="stylesheet" href="/styles/layout.css" type="text/css"/>
   </head>
@@ -22,11 +23,11 @@
   <!-- Add a new Product -->
   <section class="wrap card-body">
     <section class="body-section">
-        <h1>Create a new product</h1>
+        <h1>Add New Sneakers For Sale</h1>
         <form class="create-product" action="/sneakers/new" method="POST">
           <div class="new-product-header">
             <div class="brand-group">
-              <input type="text" class="form-control" id="brand" name="brand" placeholder="Shoe's brand" required>
+              <input type="text" class="form-control" id="brand" name="brand" placeholder="Shoe Brand" required>
             </div>
             <div class="title-group">
               <input type="text" class="form-control" id="title" name="title" placeholder="Title" required>
@@ -73,12 +74,12 @@
     <!-- Existing Products -->
     <main class="main">
 
-      <h1>Existing Sneakers</h1>
+      <h1>My Sneakers For Sale</h1>
       <section class="shoes-by-seller">
 
           <% for(let each of sneakers) { %>
-          <div class="card" style="width: 18rem;">
-            <h5 class="card-title"><%= each.brand %></h5>
+          <div class="card admin-card" style="width: 23rem;">
+            <h5 class="card-title admin-card-title"><%= each.brand %></h5>
             <% if (each.active === false) { %>
                 <div class="alert alert-warning">
                   SOLD!
@@ -94,10 +95,10 @@
 
               <div class="card-footer">
                 <form method="POST" action="/sneakers/<%= each.id %>">
-                  <button class="btn btn-primary btn-lg" <% if (each.active === false) {%> disabled <% } %>><i class="fa fa-truck"></i></button>
+                  <button class="btn btn-primary btn-lg" <% if (each.active === false) {%> disabled <% } %>>Sold <i class="fa fa-truck"></i></button>
                 </form>
                 <form method="POST" action="/sneakers/<%= each.id %>/delete">
-                  <button class="btn btn-danger btn-lg"><i class="fa fa-trash"></i></button>
+                  <button class="btn btn-danger btn-lg">Delete <i class="fa fa-trash"></i></button>
                 </form>
               </div>
             </div>

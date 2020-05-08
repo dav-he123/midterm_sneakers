@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Amaranth:wght@700&family=Titillium+Web:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
@@ -20,12 +21,12 @@
 
     <section class="wrap">
     <section class="body-section">
-    <h1>Messages By Users</h1>
+    <h1>Messages From Buyers</h1>
 
-    <div class="btn-group">
+    <div class="btn-group messages-buttons">
       <% for(let user of users) { %>
       <form class="user-name-filter" action='/messages/<%= user.from_user_id %>' method="GET">
-        <button type="submit"class="btn btn-primary"><%= user.name %></button>
+        <button type="submit"class="btn btn-primary name-button"><%= user.name %></button>
       </form>
       <% } %>
 

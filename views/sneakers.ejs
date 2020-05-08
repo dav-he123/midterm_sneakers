@@ -3,7 +3,7 @@
   <head>
     <!-- Meta Information -->
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
-    <title>Sneakers - Admin Page</title>
+    <title>Cool Sneakers</title>
     <!-- External CSS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Amaranth:wght@700&family=Titillium+Web:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
     <!-- App CSS -->
     <link rel="stylesheet" href="/styles/layout.css" type="text/css"/>
   </head>
@@ -23,6 +24,7 @@
   <section class="wrap card-body">
     <section class="body-section">
       <h1>Featured Sneakers</h1>
+      <div id="carousel-wrap">
       <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner" >
           <% featuredSneakers.forEach(function(fs, index) { %>
@@ -44,18 +46,24 @@
             <span class="sr-only">Next</span>
           </a>
         </div>
+      </div>
     <!-- List of Products for everybody-->
     <main class="main">
 
-      <h1>Existing Sneakers</h1>
-      <label for="filterPrice">Filter By Price</label>
-      <form class="range-field my-4 w-25">
-        <input type="range" class="custom-range" min="20" max="300" />
-      </form>
+
+
+      <div class="filter-wrap">
+        <h1>Sneakers For Sale</h1>
+
+        <form class="range-field my-4 w-25">
+          <label for="filterPrice">Filter By Price</label>
+          <input type="range" class="custom-range" min="20" max="300" />
+        </form>
+      </div>
 
       <section class="shoes-by-seller">
           <% for(let each of sneakers) { %>
-          <div class="card" style="width: 18rem;">
+          <div class="card" style="width: 22rem;">
             <img src="<%= each.cover_photo_url %>" class="card-img-top" alt="item_photo">
             <div class="card-body">
               <h5 class="card-title"><%= each.brand %></h5>
