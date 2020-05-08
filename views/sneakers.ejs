@@ -29,7 +29,9 @@
         <div class="carousel-inner" >
           <% featuredSneakers.forEach(function(fs, index) { %>
             <div class="carousel-item <%= (index === 0) ? 'active': '' %>">
-              <img src="<%= fs.cover_photo_url %>" class="d-block w-100" alt="sneakers">
+              <a href="/sneakers/<%= fs.id %>">
+                <img src="<%= fs.cover_photo_url %>" class="d-block w-100" alt="sneakers">
+              </a>
               <div class="carousel-caption d-none d-md-block">
                 <h5><%= fs.title %></h5>
                 <p>$ <%= fs.price %> CAD</p>
@@ -49,22 +51,19 @@
       </div>
     <!-- List of Products for everybody-->
     <main class="main">
-
-
-
       <div class="filter-wrap">
         <h1>Sneakers For Sale</h1>
-
         <form class="range-field my-4 w-25">
           <label for="filterPrice">Filter By Price</label>
           <input type="range" class="custom-range" min="20" max="300" />
         </form>
       </div>
-
       <section class="shoes-by-seller">
           <% for(let each of sneakers) { %>
           <div class="card" style="width: 22rem;">
-            <img src="<%= each.cover_photo_url %>" class="card-img-top" alt="item_photo">
+            <a href="/sneakers/<%= each.id %>">
+              <img src="<%= each.cover_photo_url %>" class="card-img-top" alt="item_photo">
+            </a>
             <div class="card-body">
               <h5 class="card-title"><%= each.brand %></h5>
             </div>

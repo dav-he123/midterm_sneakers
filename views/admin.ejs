@@ -85,7 +85,9 @@
                   SOLD!
                 </div>
             <% } %>
-            <img src="<%= each.cover_photo_url %>" class="card-img-top" alt="item_photo">
+            <a href="/sneakers/<%= each.id %>">
+              <img src="<%= each.cover_photo_url %>" class="card-img-top" alt="item_photo">
+            </a>
             <div class="card-body">
               <ul class="list-group list-group-flush">
                 <li class="list-group-item"><%= each.title %></li>
