@@ -2,8 +2,8 @@ const http = require("http");
 
 const express = require("express");
 const router = express.Router();
-const accountID = "AC";
-const accountToken = "7";
+const accountID = "AC7649939fcdea3a9737e8acfaddd20fca";
+const accountToken = "ea2fc51c3288b2de4e41ff7d8b040c95";
 const app = express();
 
 const sender = require("twilio")(accountID, accountToken);
@@ -11,8 +11,8 @@ const sender = require("twilio")(accountID, accountToken);
 router.post("/messagesent", (req, res) => {
   return sender.messages
     .create({
-      from: "+1",
-      to: "+1",
+      from: "+12025197052",
+      to: "+12899271833",
       body: req.body.message,
     })
     .then((message) => console.log(message))

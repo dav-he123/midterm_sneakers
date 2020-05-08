@@ -18,35 +18,38 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <!-- App CSS -->
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <!-- <link rel="stylesheet" href="/styles/layout.css" type="text/css" /> -->
+    <!-- <link rel="stylesheet" href="/styles/main.css" type="text/css" /> -->
+    <link rel="stylesheet" href="/styles/favourites.css" type="text/css" />
+
     <!--JQuery--->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <!--Event Handlers-->
     <script src="/scripts/favourites.js"></script>
     <script src="/scripts/load_event_handler.js"></script>
-
-    <!-- <header>
-      <%- include('partials/_header') %>
-    </header> -->
   </head>
 
   <body>
+    <header>
+      <%- include('partials/_header') %>
+    </header>
     <main class="main">
-      <section class="shoes-by-seller">
-        <h4>Favourites</h4>
-        <% for(let sneaker of favouriteSneakers) { %>
-        <div class="card" style="width: 18rem;">
-          <div class="card-body" data-item="<%= sneaker.id %>">
-            <h5 class="card-title favouriteData"><%= sneaker.title %></h5>
-            <p class="card-text favouriteData"><%= sneaker.brand %></p>
-            <p class="card-text favouriteData"><%= sneaker.price %></p>
-            <p class="card-text favouriteData">
-              <img src="<%=sneaker.cover_photo_url %>" />
-            </p>
+      <section class="shoes-seller2">
+        <h4 class="favourites-title">Favourites</h4>
+        <div class="grid-layout-favourites">
+          <% for(let sneaker of favouriteSneakers) { %>
+          <div class="card-fav">
+            <div class="card-body" data-item="<%= sneaker.id %>">
+              <h5 class="card-title favouriteData"><%= sneaker.title%></h5>
+              <p class="card-text favouriteData"><%= sneaker.brand%> Apparel</p>
+              <p class="card-text favouriteData">$ <%= sneaker.price%></p>
+
+              <img class="card-fav-image" src="<%=sneaker.cover_photo_url %>" />
+            </div>
           </div>
+          <% } %>
         </div>
-        <% } %>
       </section>
     </main>
   </body>

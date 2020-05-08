@@ -16,7 +16,7 @@ const callTextMessages = () => {
     method: "POST",
     dataType: "json",
     data: {
-      message: "Get your sneakers right now because it is ready for pickup!!",
+      message: "Someone wants to buy your sneakers!!",
     },
   });
 };

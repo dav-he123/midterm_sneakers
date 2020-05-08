@@ -6,8 +6,6 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
     />
-    <title>Sneakers - Home Page</title>
-
     <!-- External CSS -->
     <link
       rel="stylesheet"
@@ -18,48 +16,69 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <!-- App CSS -->
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <!-- <link rel="stylesheet" href="/styles/layout.css" type="text/css" /> -->
+    <link rel="stylesheet" href="/styles/main.css" type="text/css" />
+    <!-- <link rel="stylesheet" href="/styles/header.css" type="text/css" /> -->
+
     <!--JQuery--->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <!--Event Handlers-->
     <script src="/scripts/favourites.js"></script>
     <script src="/scripts/load_event_handler.js"></script>
-
-    <header>
-      <%- include('partials/_header') %>
-    </header>
   </head>
 
   <body>
+    <header>
+      <%- include('partials/_header') %>
+    </header>
     <main class="main">
       <section class="shoes-by-seller">
-        <h4>Home Page</h4>
-        <% for(let sneaker of sneakers) { %>
-        <div class="card" style="width: 18rem;">
-          <div class="card-body" data-item="<%= sneaker.id %>">
-            <h5 class="card-title favouriteData"><%= sneaker.title %></h5>
-            <p class="card-text favouriteData"><%= sneaker.brand %></p>
-            <p class="card-text favouriteData"><%= sneaker.price %></p>
-            <p class="card-text favouriteData"><%= sneaker.price %></p>
-            <p class="card-text favouriteData">
-              <img src="<%=sneaker.cover_photo_url %>" />
-            </p>
+        <h4 class="sneakers-title">Shop Sneakers</h4>
 
-            <a
-              href="/users/favourites"
-              class="fav-add-btn"
-              item_id="<%= sneaker.id %>"
-              >Favourties</a
-            >
-            <a href="#" class="btn btn-danger">Send Message</a>
+        <h5 class="title-slogan">Do you have enough style?</h5>
+
+        <div class="grid-layout">
+          <% for(let sneaker of sneakers) { %>
+          <div class="card">
+            <div class="card-body" data-item="<%= sneaker.id %>">
+              <h5 class="card-title favouriteData"><%= sneaker.title %></h5>
+              <p class="card-text favouriteData">
+                <%= sneaker.brand %> Apparel
+              </p>
+              <p class="card-text favouriteData">$ <%= sneaker.price %></p>
+
+              <!-- class="card-text favouriteData" -->
+              <img class="card-image" src="<%=sneaker.cover_photo_url %>" />
+
+              <section id="fav-buy-section">
+                <section id="fav-section-btn">
+                  <span>
+                    <button
+                      href="/users/favourites"
+                      class="fav-add-btn"
+                      item_id="<%= sneaker.id %>"
+                    >
+                      Add to Favourties
+                    </button>
+                  </span>
+                </section>
+                <section id="send-message-section-btn">
+                  <span>
+                    <button class="sms-sendbtn">Buy Shoes</button>
+                  </span>
+                </section>
+              </section>
+            </div>
+
+            <!-- <a href="#" class="btn btn-danger">Send Message</a> -->
           </div>
         </div>
         <% } %>
       </section>
     </main>
-    <main id="showSneakers" class="container-in-center">
+    <!-- <main id="showSneakers" class="container-in-center">
       <button class="sms-sendbtn">Send SMS</button>
-    </main>
+    </main> -->
   </body>
 </html>

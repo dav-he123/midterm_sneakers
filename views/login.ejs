@@ -18,17 +18,12 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/scripts/layout.css" type="text/css" />
-    <link rel="stylesheet" href="./styles/header.css" type="text/css" />
-
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/main.css" type="text/css" />
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
-
-
-    <title>Sneakers - Home Page</title>
-
   </head>
-
 
   <header id="displaylogin">
     <h1 class="text-lead">Let's Shop Sneakers</h1>
@@ -37,30 +32,26 @@
     </p>
   </header>
 
+  <section id="login-section">
+    <h1>Sign In</h1>
 
-  <body>
+    <form class="login-form" action="/login" method="POST">
+      <input type="text" id="username" name="email" placeholder="email" />
+      <span>
+        <button type="submit" class="btn-login">Login</button>
+      </span>
+    </form>
+  </section>
+
+  <!-- <body>
     <h3>Login</h3>
     <div class="right-buttons">
       <form id="login-form" action="/login" method="POST">
         <input type="text" id="username" name="email" placeholder="email" />
         <span>
-          <button type="submit" class="login-btn">Login</button>
+          <button type="submit" id="login-btn">Login</button>
         </span>
       </form>
-      <span id="logout-form"></span id="logout-form">
-        <button type="submit" class="logout-btn">Logout</button>
-      </span>
     </div>
-
-    <h3>Favourites</h3>
-    <div class="right-buttons">
-      <span>
-        <button type="submit" class="favourites-btn">favourites</button>
-      </span>
-    </div>
-
-  </body>
-
-
-
+  </body> -->
 </html>
