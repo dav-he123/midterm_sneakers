@@ -58,7 +58,7 @@ const getAllSneakers = function() {
 exports.getAllSneakers = getAllSneakers;
 
 
-// Get a list of sneakers filter by featured
+// Get a list of sneakers filter featured
 const getFeaturedSneakers = function() {
   const querySQL = `SELECT * FROM items WHERE featured = true ORDER BY id DESC`
   return db.query(querySQL)
@@ -73,6 +73,22 @@ const getFeaturedSneakers = function() {
 }
 exports.getFeaturedSneakers = getFeaturedSneakers;
 
+
+// Filter sneaker by price
+const sneakersFilterByPrice = function(range) {
+  const querySQL = `SELECT * FROM items WHERE price BETWEEN
+  $1 AND $2 ORDER BY price DESC`
+  return db.query(querySQL, [range.min, range,max])
+  .then(res => {
+    if(res.rows) {
+      return res;
+    } else {
+      return null
+    }
+  })
+  .catch(err => console.log('eror', err));
+}
+exports.sneakersFilterByPrice = sneakersFilterByPrice;
 
 // Get a list of sneakers for each owner
 const getShoesBySeller = function(user_id) {
