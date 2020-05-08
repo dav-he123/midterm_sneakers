@@ -25,15 +25,15 @@
       <h1>Featured Sneakers</h1>
       <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner" >
-          <% for(let fs of featuredSneakers) { %>
-            <div class="carousel-item" >
+          <% featuredSneakers.forEach(function(fs, index) { %>
+            <div class="carousel-item <%= (index === 0) ? 'active': '' %>">
               <img src="<%= fs.cover_photo_url %>" class="d-block w-100" alt="sneakers">
               <div class="carousel-caption d-none d-md-block">
                 <h5><%= fs.title %></h5>
                 <p>$ <%= fs.price %> CAD</p>
               </div>
             </div>
-          <% } %>
+          <% }) %>
           </div>
           <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
