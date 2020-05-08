@@ -98,7 +98,7 @@ router.get("/sneakers/:id", (req, res) => {
 
 // Update the specific pair of shoes
 router.post('/sneakers/:id', (req, res) => {
-  const sneaker = {id: req.params.id, active: 'false'}
+  const sneaker = {id: req.params.id, active: 'false', featured: 'false'}
   database.updateSneakerById(sneaker)
   res.redirect('/admin');
 });

@@ -129,8 +129,8 @@ exports.getSneakersById = getSneakersById;
 
 // Update a specific pair of sneakers
 const updateSneakerById = function(sneaker){
-  const querySQL = `UPDATE items SET active = $1 WHERE id = $2`
-  return db.query(querySQL,[sneaker.active, sneaker.id,])
+  const querySQL = `UPDATE items SET active = $1, featured = $2  WHERE id = $3`
+  return db.query(querySQL,[sneaker.active,sneaker.featured, sneaker.id,])
   .then(res => {
     if(res.rows) {
       return res;
@@ -141,8 +141,6 @@ const updateSneakerById = function(sneaker){
  .catch(err => console.log('error', err));
 }
 exports.updateSneakerById = updateSneakerById;
-
-
 
 // Delete a specific pair of sneakers
 const delSneakerById = function(id){
