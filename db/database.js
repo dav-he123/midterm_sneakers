@@ -44,7 +44,7 @@ const getUserWithEmail = function (email) {
 
 // Get all sneakers
 const getAllSneakers = function() {
-  const querySQL = `SELECT * FROM items`
+  const querySQL = `SELECT * FROM items WHERE active = true ORDER BY id DESC`
   return db.query(querySQL)
   .then(res => {
     if(res.rows) {
@@ -79,7 +79,8 @@ const getShoesBySeller = function(user_id) {
   const querySQL = `SELECT items.id, items.brand, items.size, items.title, items.price, items.description, items.cover_photo_url, active
   FROM items
   JOIN users ON users.id = admin_id
-  WHERE users.id=$1`
+  WHERE users.id=$1
+  ORDER BY items.id DESC`
   return db.query(querySQL,[user_id])
   .then(res => {
     if(res.rows) {
