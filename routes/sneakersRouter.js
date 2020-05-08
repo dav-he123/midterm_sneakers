@@ -1,24 +1,14 @@
-/*
- * All routes for Shoes are defined here
- * Since this file is loaded in server.js into api/users,
- *   these routes are mounted onto /users
- * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
- */
 const express = require('express');
 const router = express.Router();
 const database = require('../db/database');
 
 // List of sneakers
 router.get("/", (req, res) => {
-
   const user_id = req.cookies.user_id;
   if (!user_id) {
     res.redirect("/login");
   }
-
   let user_email = req.cookies.email;
-
-
   database.getAllSneakers()
   .then(data => {
     database.getFeaturedSneakers().then(featureData => {
@@ -28,7 +18,6 @@ router.get("/", (req, res) => {
         sneakers: sneakers,
         featuredSneakers: featuredSneakers,
         current_user_email: user_email
-
       }
       res.render("sneakers", templateVars );
     })
@@ -47,8 +36,6 @@ router.get("/admin", (req, res) => {
     res.redirect("/login");
   }
   let user_email = req.cookies.email;
-
-
   database.getShoesBySeller(user_id)
   .then(data => {
     const shoes = data.rows;
@@ -67,6 +54,10 @@ router.get("/admin", (req, res) => {
 
 // Create a new pair of shoes
 router.post("/sneakers/new", (req, res) => {
+  const user_id = req.cookies.user_id;
+  if (!user_id) {
+    res.redirect("/login");
+  }
   const sneaker = req.body;
   sneaker.featured  = (sneaker.featured === 'on') ? true: false;
   sneaker.admin_id = req.cookies.user_id;
@@ -86,9 +77,7 @@ router.get("/sneakers/:id", (req, res) => {
   if (!user_id) {
     res.redirect("/login");
   }
-
   let user_email = req.cookies.email;
-
   const id = (req.params.id);
   database.getSneakersById(id)
   .then(data => {
@@ -109,7 +98,7 @@ router.get("/sneakers/:id", (req, res) => {
 
 // Update the specific pair of shoes
 router.post('/sneakers/:id', (req, res) => {
-  const sneaker = {id: req.params.id, active: 'false'}
+  const sneaker = {id: req.params.id, active: 'false', featured: 'false'}
   database.updateSneakerById(sneaker)
   res.redirect('/admin');
 });
@@ -123,11 +112,9 @@ router.post("/sneakers/:id/delete", (req, res) => {
 
 // Post a message to the owner of shoe
 router.post("/sneakers_messages/:id", (req, res) => {
-
   let messageText = req.body.new_message;
   let userId = req.cookies.user_id;
   let toSneaker = req.params.id;
-
   database
     .getSneakersById(req.params.id)
     .then((data) => {
@@ -143,13 +130,10 @@ router.post("/sneakers_messages/:id", (req, res) => {
     })
 });
 
+// Logout
 router.post("/logout", (req, res) => {
-  // req.session.userId = null;
-  // res.send({});
-
   res.clearCookie("user_id");
   res.clearCookie("email");
-
   res.redirect("/login");
 });
 
