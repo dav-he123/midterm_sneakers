@@ -6,10 +6,7 @@ db.connect();
 
 /// Users
 
-/**
- * Get all users.
- * @return {Promise<{}>} A promise with the list of users.
- */
+/// get all Users
 const getAllUsers = function() {
   const querySQL = `SELECT * FROM users`
   return db.query(querySQL)
@@ -24,6 +21,7 @@ const getAllUsers = function() {
 }
 exports.getAllUsers = getAllUsers;
 
+
 // Get User by email
 const getUserWithEmail = function (email) {
   const querySQL = `SELECT * FROM users WHERE email = $1`
@@ -32,7 +30,8 @@ const getUserWithEmail = function (email) {
  }
  exports.getUserWithEmail = getUserWithEmail;
 
-// Get User by id
+
+ // Get User by id
  const getUserWithId = function (id) {
    const querySQL = `SELECT * FROM users WHERE id = $1`
    return db.query(querySQL,[id])
@@ -41,12 +40,9 @@ const getUserWithEmail = function (email) {
  exports.getUserWithId = getUserWithId;
 
 
- /// Sneakers
+/// Sneakers
 
-/**
- * Get a list of sneakers
- * @return {Promise<{}>} A promise wiht list of sneakers.
- */
+// Get all sneakers
 const getAllSneakers = function() {
   const querySQL = `SELECT * FROM items`
   return db.query(querySQL)
@@ -61,12 +57,10 @@ const getAllSneakers = function() {
 }
 exports.getAllSneakers = getAllSneakers;
 
-/**
- * Get a list of sneakers filter by featured
- * @return {Promise<{}>} A promise with list of sneakers filter by featured.
- */
+
+// Get a list of sneakers filter by featured
 const getFeaturedSneakers = function() {
-  const querySQL = `SELECT * FROM items WHERE featured = true`
+  const querySQL = `SELECT * FROM items WHERE featured = true ORDER BY id DESC`
   return db.query(querySQL)
   .then(res => {
     if(res.rows) {
@@ -78,11 +72,9 @@ const getFeaturedSneakers = function() {
   .catch(err => console.log('eror', err));
 }
 exports.getFeaturedSneakers = getFeaturedSneakers;
-/**
- * Get a list of sneakers for each owner
- * @param {String} use user_id of the owner.
- * @return {Promise<{}>} A promise with the list of sneakers.
- */
+
+
+// Get a list of sneakers for each owner
 const getShoesBySeller = function(user_id) {
   const querySQL = `SELECT items.id, items.brand, items.size, items.title, items.price, items.description, items.cover_photo_url, active
   FROM items
@@ -100,12 +92,8 @@ const getShoesBySeller = function(user_id) {
 }
 exports.getShoesBySeller = getShoesBySeller;
 
-/**
- * Add a new pair of shoes to sell.
- * @param {{brand: string, title: string, price: int, colour: string, size: int, description: string, cover_photo_url:string, gender: string, active: boolean}} shoes
- * @return {Promise<{}>} A promise to the new pair of shoes.
- */
 
+// Add a new pair of sneakers to sell.
  const addSneaker = function(sneaker){
    const querySQL = `INSERT INTO items (admin_id, brand, title, price, colour, size, description, cover_photo_url, gender, featured, active )
    VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, 'true')
@@ -122,12 +110,8 @@ exports.getShoesBySeller = getShoesBySeller;
  }
  exports.addSneaker = addSneaker;
 
- /**
- * List a specific sneaker
- * @param {{id}} shoes
- * @return {Promise<{}>} A promise to the new pair of shoes.
- */
 
+// List a specific pair of sneakers
 const getSneakersById = function(id){
   const querySQL = `SELECT id, brand, admin_id, title, price, size, description, cover_photo_url, active FROM items WHERE id = $1`
   return db.query(querySQL,[id])
@@ -142,12 +126,8 @@ const getSneakersById = function(id){
 }
 exports.getSneakersById = getSneakersById;
 
-/**
- * Update a specific pair of sneakers
- * @param {{id}} sneaker's id
- * @return {Promise<{}>} Succesful promise of deleted item.
- */
 
+// Update a specific pair of sneakers
 const updateSneakerById = function(sneaker){
   const querySQL = `UPDATE items SET active = $1 WHERE id = $2`
   return db.query(querySQL,[sneaker.active, sneaker.id,])
@@ -163,12 +143,8 @@ const updateSneakerById = function(sneaker){
 exports.updateSneakerById = updateSneakerById;
 
 
-/**
- * Delete a specific pair of sneakers
- * @param {{id}} sneaker's id
- * @return {Promise<{}>} Succesful promise of deleted item.
- */
 
+// Delete a specific pair of sneakers
 const delSneakerById = function(id){
   const querySQL = `DELETE FROM items WHERE id = $1`
   return db.query(querySQL,[id])
@@ -186,6 +162,7 @@ exports.delSneakerById = delSneakerById;
 
 /// Favourites
 
+// Find List of favourites sneakers according with a user_id
 const findFavouriteSneaker = (id) => {
   const querySQL = `SELECT * FROM favourites WHERE user_id = $1`
   return db.query(querySQL, [id])
@@ -193,6 +170,7 @@ const findFavouriteSneaker = (id) => {
 };
 exports.findFavouriteSneaker = findFavouriteSneaker;
 
+// Get the item_id of a specific user_id in favourites
 const getFavouriteSneakers = function (user) {
   const querySQL = `SELECT item_id FROM favourites WHERE user_id = $1`
   return db.query(querySQL,[user])
@@ -201,9 +179,10 @@ const getFavouriteSneakers = function (user) {
 exports.getFavouriteSneakers = getFavouriteSneakers;
 
 
-  /// Messages
+/// Messages
 
-  const getMessages = function(userId) {
+// get messages
+const getMessages = function(userId) {
     const querySQL = `SELECT from_users.id AS from_user_id, from_users.name AS from_user_name, to_users.name AS to_user_name, items.brand, items.title, STRING_AGG(messages.message, '|')
     FROM messages
     JOIN users AS to_users ON to_user_id = to_users.id
@@ -218,13 +197,11 @@ exports.getFavouriteSneakers = getFavouriteSneakers;
         return res
       });
   };
+exports.getMessages = getMessages;
 
-  exports.getMessages = getMessages;
 
-
-  /// Users that have messaged
-
-  const getUserMessages = function(userId) {
+/// Users that have messaged
+const getUserMessages = function(userId) {
     const querySQL = `SELECT DISTINCT from_users.id AS from_user_id, from_users.name
     FROM messages
     JOIN users AS to_users ON to_user_id = to_users.id
@@ -238,11 +215,10 @@ exports.getFavouriteSneakers = getFavouriteSneakers;
         return res
       });
   };
+exports.getUserMessages = getUserMessages;
 
-  exports.getUserMessages = getUserMessages;
 
 //// Get messages from specific user
-
 const getMessagesFromUser = function(userId, fromUser) {
   const querySQL = `SELECT messages.id, messages.from_user_id, from_users.name AS from_user_name, messages.to_user_id, to_users.name AS to_user_name, items.brand, items.title, messages.message, items.id AS item_id
   FROM messages
@@ -258,16 +234,12 @@ const getMessagesFromUser = function(userId, fromUser) {
       return res
     });
 };
-
 exports.getMessagesFromUser = getMessagesFromUser;
 
 //// Post message to specific user
-
 const postMessagesToUser = function(messageText, fromUser, toUser, sneakerId) {
-
   console.log(messageText);
   const sql = "INSERT INTO messages (from_user_id, to_user_id, item_id, message) VALUES ($2, $3, $4, $1);"
-
   return db.query(sql, [messageText, fromUser, toUser, sneakerId])
   .then(res => {
     if(res.rows) {
@@ -278,17 +250,13 @@ const postMessagesToUser = function(messageText, fromUser, toUser, sneakerId) {
   })
   .catch(err => console.log('error', err));
 };
-
 exports.postMessagesToUser = postMessagesToUser;
 
 
 ///// General post message
-
 const postMessages = function(messageText) {
-
   console.log(messageText);
   const sql = "INSERT INTO messages (from_user_id, to_user_id, item_id, message) VALUES (4, 5, 5, $1);"
-
   return db.query(sql, [messageText])
   .then(res => {
     if(res.rows) {
@@ -299,18 +267,13 @@ const postMessages = function(messageText) {
   })
   .catch(err => console.log('error', err));
 };
-
 exports.postMessages = postMessages;
 
 /// Post messages to specific sneaker owner
-
 /// .postMessagesToSneaker(messageText, userId, adminId)
-
 const postMessagesToSneaker = function(messageText, fromUser, adminId, productId) {
-
   console.log(messageText);
   const sql = "INSERT INTO messages (from_user_id, to_user_id, item_id, message) VALUES ($2, $3, $4, $1);"
-
   return db.query(sql, [messageText, fromUser, adminId, productId])
   .then(res => {
     if(res.rows) {
@@ -321,5 +284,4 @@ const postMessagesToSneaker = function(messageText, fromUser, adminId, productId
   })
   .catch(err => console.log('error', err));
 };
-
 exports.postMessagesToSneaker = postMessagesToSneaker;
