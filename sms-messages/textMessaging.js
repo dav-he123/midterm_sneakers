@@ -1,6 +1,7 @@
-const ID = "";
-const token = "";
-const client = require("twilio")(ID, token);
+const authID = "";
+const authtoken = "";
+
+const client = require("twilio")(authID, authtoken);
 client.messages
   .create({
     body: "Get your sneakers!!",
