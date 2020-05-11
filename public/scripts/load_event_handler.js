@@ -20,12 +20,3 @@ const callTextMessages = () => {
     },
   });
 };
-
-//   $.ajax({
-//     url: "/sms/messagesent",
-//     method: "POST",
-//     dataType: "json",
-//     data: {
-//       message: "Get your sneakers right now",
-//     },
-// });
